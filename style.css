@@ -17,8 +17,8 @@ body{
 }
 
 .main{
-    width: 40rem;
-    height: 12rem;
+    width: 46rem;
+    height: 20rem;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -30,10 +30,13 @@ body{
 }
 
 .main__text{
-    
-    text-align: center;
+    margin: 1rem 1rem;
+    text-align: justify;
     line-height: 1.5rem;
     
+}
+span{
+    font-weight: 700;
 }
 h1{
     font-size: 1.6rem;
@@ -58,7 +61,7 @@ h1{
 @media(max-width:600px){
     .main{
         width: 80%;
-        height: 20rem;
+        height: 70%;
     }
     .main__text{
         width: 85%;
@@ -66,4 +69,10 @@ h1{
     h1{
         text-align: center;
     };
+}
+
+@media(max-width:450px){
+    .main{
+        height: 90%;
+    }
 }
