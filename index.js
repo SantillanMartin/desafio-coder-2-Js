@@ -73,15 +73,15 @@ function porcentajeInteres(){
         
         
     }else if(cuotasSeleccionadas==6){
-        porcentaje.push(20,6,"cuotas");
+        porcentaje.push(20,6,"cuotas ");
         
     }else if(cuotasSeleccionadas==9){
-        porcentaje.push(30,9,"cuotas");
+        porcentaje.push(30,9,"cuotas ");
         
     }else if(cuotasSeleccionadas==12){
-        porcentaje.push(40,12,"cuotas");
+        porcentaje.push(40,12,"cuotas ");
     }else{
-        porcentaje.push(0,1,"cuota");
+        porcentaje.push(0,1,"cuota ");
        
         
     }
@@ -96,7 +96,15 @@ function calcularIntereses(monto,interes){
     
     
 }
-
+/*
+function mostrarCarrito(lista){// Muestro en un simple contenedor la lista de productos que lleva el cliente.
+    let contenedor=document.getElementById("main");
+    let card=document.createElement("p");
+    card.className="card"
+    card.innerHTML=lista;
+    contenedor.appendChild(card);
+};
+*/
 
 
 function main(){
@@ -105,20 +113,25 @@ function main(){
     let interes=porcentajeInteres();//Calculo el interes de existir y lo guardo en un array con un indice determinado para cada accion que quiero que el programa ejecute.
     let productosQueLleva=[];// Almaceno una lista con los productos elegidos.
     productos.forEach((producto)=>{
-        productosQueLleva.push(producto.nombre);
-    });
-    
+        
+        productosQueLleva.push(`${producto.nombre}- cant: ${producto.cantidad}<br>`);
+        
+    });// Aqui almacene el nombre del producto que lleva + la cantidad, para luego mostrar por una variable mensaje-final.
+     
     let interesesASumar=calcularIntereses(totalApagar,interes[0]);//Aqui el indice 0 indica el porcentaje de interes.
     let totalApagarConInteres=totalApagar+interesesASumar;
     let totalApagarEnCuotas=totalApagarConInteres/interes[1];//Aqui el indice 1 indica la cantidad de cuotas||El indice [2] es un mensaje que dira cuota o cuotas.
-    alert("Usted compro : "+productosQueLleva+"\nSiendo el total a pagar de: "+totalApagarConInteres+"$."+" En "+interes[1]+" "+interes[2] +"de: "+totalApagarEnCuotas.toFixed(2)+"$.");
     
     
-    
-    
-    
+    // Aqui estoy enlazando el js con el html para luego imprimir todo en un parrafo.
+    let contenedor=document.getElementById("main");
+    let mensaje=document.createElement("p");
+    mensaje.id="mensaje-final";
+    mensaje.className="card";
+    mensaje.innerHTML=`Usted compro:<br> ${productosQueLleva.join((''))}<br>Siendo el total a pagar la suma de: ${totalApagarConInteres}$ en ${interes[1]} ${interes[2]} de ${totalApagarEnCuotas.toFixed(2)}$ cada una.`;
+    contenedor.appendChild(mensaje);
 }
-
-
-
-  
+ let botonComenzar=document.getElementById("boton-comenzar");
+ botonComenzar.onclick=()=>{
+    main();
+ }

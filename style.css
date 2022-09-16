@@ -18,7 +18,7 @@ body{
 
 .main{
     width: 46rem;
-    height: 20rem;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -44,7 +44,7 @@ h1{
 }
 
 .main__button{
-    width: 5rem;
+    width: 7rem;
     height: 2rem;
     border-radius: 0.5rem;
     border: none;
@@ -53,9 +53,23 @@ h1{
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     transition: 0.2s;
     font-family: 'Poppins',sans-serif;
+    margin: 0.5rem 0;
 }
 .main__button:active{
     transform: scale(0.92);
+}
+
+.card{
+    margin: 1rem 0;
+    width: 80%;
+    height: 60%;
+    border: solid black 1px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    background-color: wheat;
+    text-align: center;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    
 }
 
 @media(max-width:600px){
@@ -75,4 +89,5 @@ h1{
     .main{
         height: 90%;
     }
+    
 }
