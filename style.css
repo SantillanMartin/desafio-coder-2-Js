@@ -10,38 +10,88 @@ body{
     font-family: 'Poppins', sans-serif;
     color: rgb(33, 49, 6);
     background: linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
+    
+    
+}
+.header{
+    width: 100%;
+    height: 8rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    background-color: wheat;
+}
+
+.header img{
+    width: 6rem;
+    height: 5rem;
 }
 
 .main{
-    width: 46rem;
+    width: 100%;
     height: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     background-color: #fdb99b;
-    border-radius: 0.4rem;
     box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.233);
     
 }
 
 .main__text{
     margin: 1rem 1rem;
-    text-align: justify;
-    line-height: 1.5rem;
-    
+    width: 75%;
+    background-color: white;
+    line-height: 2rem;
+    font-size: 1.5rem;
 }
-span{
-    font-weight: 700;
+
+.main__cards{
+    display:flex;
+    width: 70%;
+    height: 22rem;
+    justify-content: space-around;
+    align-items: center;
 }
-h1{
-    font-size: 1.6rem;
-    font-family: 'Poppins',sans-serif;
+.main__cards__productos{
+    width: 17rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border: solid 1px gray;
+    border-radius: 0.4rem;
+    background-color: #ffffff;
 }
+.main__cards__productos img{
+    width: 10rem;
+    height: 12rem;
+    box-shadow: 1px 1px 10px rgb(121, 115, 115);
+    border-radius: 0.4rem;
+}
+.main__cards__button{
+    width: 8rem;
+    height: 2rem;
+    border: none;
+    border-radius: 0.4rem;
+    background-color: rgba(240, 3, 3, 0.623);
+    transition: 0.3s;
+}
+.main__cards__button:hover{
+    box-shadow: 1px 1px 7px gray;
+}
+.main__cards__button:active{
+    transform: scale(0.95);
+}
+.main__cards__precio-nombre{
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+    align-items: center;
+}
+
 
 .main__button{
     width: 7rem;
@@ -58,19 +108,80 @@ h1{
 .main__button:active{
     transform: scale(0.92);
 }
+.main__contenedor{
+    
+    width: 50%;
+    ;
+    background-color: white;
+}
 
 .card{
     margin: 1rem 0;
-    width: 80%;
+    width: 100%;
     height: 60%;
     border: solid black 1px;
-    font-weight: bold;
+    font-weight: lighter;
     color: rgb(0, 0, 0);
-    background-color: wheat;
+    background-color: rgb(255, 255, 255);
     text-align: center;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     
 }
+.input__forma{
+    border: none;
+    width: 8rem;
+    height: 2rem;
+    border-radius: 0.3rem;
+
+}
+.menu__carrito__contenedor{
+    display: flex;
+    justify-content: center;
+}
+
+.menu__carrito{
+    width: 30rem;
+    height: 49.6rem;
+    border: solid black;
+    position: absolute;
+    top: 0;
+    
+    background-color:white;
+    z-index: 10;
+    transition: 0.7s;
+    top: -200%;
+    
+}
+.menu__carrito__botones{
+    height: 5rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border: solid black 1px;
+}
+.botones__finalizar-cuotas{
+    width: 5rem;
+    height: 3rem;
+    border: none;
+    background-color: #c4a4ec;
+    border-radius: 0.4rem;
+    box-shadow: 1px 1px 7px grey;
+    transition: 0.4s;
+
+}
+.botones__finalizar-cuotas:hover{
+    transform: scale(0.95);
+}
+#insertar__total__interes{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.menu__subtotal{
+    text-align: center;
+}
+
 
 @media(max-width:600px){
     .main{

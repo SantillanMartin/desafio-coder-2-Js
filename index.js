@@ -17,8 +17,30 @@ class Producto{
     
 }
 
-//Con esta funcion el usuario registra la cantidad de productos que lleva,hasta que la variable decision ya no sea SI.
+    const PRODUCTOS=[
+    {
+        nombre:"Cafe",
+        precio:350,
+        cantidad:0,
+        calcularCosto(){
+        cantidad * precio;
+        
+    }
+    },
+    {nombre:"Manteca",precio:200,cantidad:0,calcularCosto(){
+        cantidad*precio;
+    }},
+    {nombre:"Vino",precio:1200,cantidad:0,calcularCosto(){
+        this.cantidad*this.precio;
+    }},
+    {nombre:"Heladera",precio:200000,cantidad:0,calcularCosto(){
+        cantidad*precio;
+    }}];
 
+
+
+//Con esta funcion el usuario registra la cantidad de productos que lleva,hasta que la variable decision ya no sea SI.
+/*
 function registroProducto(){
     let productos=[];
     let decision="si"
@@ -51,7 +73,7 @@ function registroProducto(){
     return productos;
     
 }
-
+*/
 
 function porcentajeInteres(){
     
@@ -96,42 +118,236 @@ function calcularIntereses(monto,interes){
     
     
 }
-/*
-function mostrarCarrito(lista){// Muestro en un simple contenedor la lista de productos que lleva el cliente.
-    let contenedor=document.getElementById("main");
-    let card=document.createElement("p");
-    card.className="card"
-    card.innerHTML=lista;
-    contenedor.appendChild(card);
-};
-*/
+
+// Esta funcion suma cada producto elegido y los guarda en el valor cantidad de cada objeto. El parametro indice es el indice del objeto y el id es el id del input del objeto en el html.
+function sumarCantidadesProducto(indice,id){
+    PRODUCTOS[indice].cantidad=PRODUCTOS[indice].cantidad+parseInt(document.getElementById(id).value);
+    
+}
+
+// Variable global que uso como acumulador de precios de los productos.
+let sumaDeProductosPrecio=0;
+
+// Esta funcion va a ir llenando el acumulador para luego mostrar el total.
+function sumarPrecioProducto(indice,id){
+    sumaDeProductosPrecio=sumaDeProductosPrecio+(PRODUCTOS[indice].precio*parseInt(document.getElementById(id).value));
+}
+
+
+// variable global carrito donde ire guardando cada producto agregado por los botones agregar.
+let carrito=[];
+
+function llenarCarrito(productoNombre){
+    
+    let productoElegido=PRODUCTOS.find((producto)=>producto.nombre==productoNombre)
+    carrito.push(productoElegido);
+    
+}
+function mostrarCarrito(producto,id){
+        let cantidad=document.createElement("div");
+        cantidad.className="main__contenedor__appenchild";
+        cantidad.innerHTML=`<p>Agrego al carrito: ${producto} -CANTIDAD: ${document.getElementById(id).value}`;
+        let contenedor=document.getElementById("contenedor-mensaje");
+        contenedor.append(cantidad);
+        
+
+}
+function mostrarTotal(){
+    document.getElementById("suma__total").value=sumaDeProductosPrecio;
+}
+
+
+
+
+let botonCafe=document.getElementById("agregar-cafe");
+botonCafe.onclick=()=>{
+    
+    llenarCarrito("Cafe");
+    sumarCantidadesProducto(0,"cantidad-cafe");
+    sumarPrecioProducto(0,"cantidad-cafe");
+    mostrarCarrito("CAFE","cantidad-cafe");
+    mostrarTotal();
+        
+    
+}
+
+
+let botonManteca=document.getElementById("agregar-manteca");
+    botonManteca.onclick=()=>{
+        llenarCarrito("Manteca");
+        sumarCantidadesProducto(1,"cantidad-manteca");
+        sumarPrecioProducto(1,"cantidad-manteca");
+        mostrarCarrito("MANTECA","cantidad-manteca");
+        mostrarTotal();
+    }    
+
+let botonVino=document.getElementById("agregar-vino");
+    botonVino.onclick=()=>{
+        llenarCarrito("Vino");
+        sumarCantidadesProducto(2,"cantidad-vino");
+        sumarPrecioProducto(2,"cantidad-vino");
+        mostrarCarrito("VINO","cantidad-vino");
+        mostrarTotal();
+    }
+
+
+
+    let botonHeladera=document.getElementById("agregar-heladera");
+botonHeladera.onclick=()=>{
+    llenarCarrito("Heladera");
+    sumarCantidadesProducto(3,"cantidad-heladera");
+    sumarPrecioProducto(3,"cantidad-heladera");
+    mostrarCarrito("HELADERA-SAMSUNG","cantidad-heladera");
+    mostrarTotal();
+    
+}
+
+
+
+
 
 
 function main(){
-    let productos= registroProducto();
-    let totalApagar=productos.reduce((costoTotal,elemento)=>costoTotal+elemento.calcularCosto(),0);// Uso metodo REDUCE para ir sumando el total de cada producto por la cantidad que lleva.
-    let interes=porcentajeInteres();//Calculo el interes de existir y lo guardo en un array con un indice determinado para cada accion que quiero que el programa ejecute.
+    //let productos= stockProductos();
+    //let totalApagar=carrito.reduce((costoTotal,elemento)=>costoTotal+elemento.calcularCosto(),0);// Uso metodo REDUCE para ir sumando el total de cada producto por la cantidad que lleva.
+    //let interes=porcentajeInteres();//Calculo el interes de existir y lo guardo en un array con un indice determinado para cada accion que quiero que el programa ejecute.
     let productosQueLleva=[];// Almaceno una lista con los productos elegidos.
-    productos.forEach((producto)=>{
+    let contador=1;
+    carrito.forEach((producto)=>{
         
-        productosQueLleva.push(`${producto.nombre}- cant: ${producto.cantidad}<br>`);
-        
+        productosQueLleva.push(`${contador}-${producto.nombre} - cantidad: ${producto.cantidad}<br>`);
+        contador++;
     });// Aqui almacene el nombre del producto que lleva + la cantidad, para luego mostrar por una variable mensaje-final.
-     
+    /*
     let interesesASumar=calcularIntereses(totalApagar,interes[0]);//Aqui el indice 0 indica el porcentaje de interes.
     let totalApagarConInteres=totalApagar+interesesASumar;
     let totalApagarEnCuotas=totalApagarConInteres/interes[1];//Aqui el indice 1 indica la cantidad de cuotas||El indice [2] es un mensaje que dira cuota o cuotas.
-    
+    */
     
     // Aqui estoy enlazando el js con el html para luego imprimir todo en un parrafo.
-    let contenedor=document.getElementById("main");
+    let cantidadFinalProductos=PRODUCTOS.reduce((lista,producto)=>lista+producto.cantidad,0);
+    let contenedor=document.getElementById("contenedor-mensaje");
+    contenedor.innerHTML="";
     let mensaje=document.createElement("p");
+    
     mensaje.id="mensaje-final";
     mensaje.className="card";
-    mensaje.innerHTML=`Usted compro:<br> ${productosQueLleva.join((''))}<br>Siendo el total a pagar la suma de: ${totalApagarConInteres}$ en ${interes[1]} ${interes[2]} de ${totalApagarEnCuotas.toFixed(2)}$ cada una.`;
+    mensaje.innerHTML=`Productos :<br> ${productosQueLleva.join(('')) }`;
     contenedor.appendChild(mensaje);
+    return mensaje;
 }
- let botonComenzar=document.getElementById("boton-comenzar");
+
+
+
+
+let botonComenzar=document.getElementById("boton-comenzar");
  botonComenzar.onclick=()=>{
-    main();
- }
+    
+    
+    
+
+    let carritoDiv=document.getElementById("carrito__mostrar");
+    carritoDiv.style.top=0;
+    
+    let contenedorCarrito=document.getElementById("insertar__total");
+    let mostrarTotalPrecio=document.createElement("h2");
+    contenedorCarrito.innerHTML="";
+    mostrarTotalPrecio.innerHTML=`$${sumaDeProductosPrecio}`;
+    contenedorCarrito.appendChild(mostrarTotalPrecio);
+    
+    
+  }
+let botonSeguir=document.getElementById("seguir");
+botonSeguir.onclick=()=>{
+    let carritoDiv=document.getElementById("carrito__mostrar");
+    carritoDiv.style.top='-200%';
+    
+    
+}
+
+function finalizarCompra(){
+    let contenedorCuotas=document.getElementById("insertar__total__interes");
+    let botonFinalizar=document.createElement("button");
+    botonFinalizar.className="botones__finalizar-cuotas"
+    botonFinalizar.id="boton__finalizar"
+    botonFinalizar.innerHTML="FINALIZAR COMPRA";
+    contenedorCuotas.appendChild(botonFinalizar);
+    botonFinalizar.onclick=()=>{
+        Swal.fire('Gracias por su compra, se recargara la pagina.');
+        function recargarPagina(){
+            location.reload();
+        }
+        setTimeout(recargarPagina, 4000);
+        
+
+    }
+
+}
+
+// BOTONES QUE SUMAN EL TOTAL MAS EL INTERES ELEGIDO, DE MOMENTO CREE LOS BOTONES REPITIENDO CODIGO, DEBO CORREGIRLO PARA NO REPETIR.
+
+let botonCuotas1=document.getElementById("cuotas__1");
+botonCuotas1.className="botones__finalizar-cuotas";
+botonCuotas1.onclick=()=>{
+    let contenedorCuotas=document.getElementById("insertar__total__interes");
+    contenedorCuotas.innerHTML="";
+    let totalEnCuotas=document.createElement("h2");
+    let porcentajeASumar=calcularIntereses(sumaDeProductosPrecio,0);
+    let totalConInteresSumado=sumaDeProductosPrecio+porcentajeASumar;
+    totalEnCuotas.innerHTML=`Total con interes sumado de corresponder:<br>$${totalConInteresSumado} en 1 cuota de $${totalConInteresSumado}`;
+    contenedorCuotas.appendChild(totalEnCuotas);
+    finalizarCompra();
+}
+
+let botonCuotas3=document.getElementById("cuotas__3");
+botonCuotas3.className="botones__finalizar-cuotas";
+botonCuotas3.onclick=()=>{
+    let contenedorCuotas=document.getElementById("insertar__total__interes");
+    contenedorCuotas.innerHTML="";
+    let totalEnCuotas=document.createElement("h2");
+    let porcentajeASumar=calcularIntereses(sumaDeProductosPrecio,15);
+    let totalConInteresSumado=sumaDeProductosPrecio+porcentajeASumar;
+    totalEnCuotas.innerHTML=`Total con interes sumado de corresponder:<br>$${totalConInteresSumado} en 3 cuotas de $${(totalConInteresSumado/3).toFixed(2)}`;
+    contenedorCuotas.appendChild(totalEnCuotas);
+    finalizarCompra();
+}
+
+let botonCuotas6=document.getElementById("cuotas__6");
+botonCuotas6.className="botones__finalizar-cuotas";
+botonCuotas6.onclick=()=>{
+    let contenedorCuotas=document.getElementById("insertar__total__interes");
+    contenedorCuotas.innerHTML="";
+    let totalEnCuotas=document.createElement("h2");
+    let porcentajeASumar=calcularIntereses(sumaDeProductosPrecio,20);
+    let totalConInteresSumado=sumaDeProductosPrecio+porcentajeASumar;
+    totalEnCuotas.innerHTML=`Total con interes sumado de corresponder:<br>$${totalConInteresSumado} en 6 cuotas de $${(totalConInteresSumado/6).toFixed(2)}`;
+    contenedorCuotas.appendChild(totalEnCuotas);
+    finalizarCompra();
+}
+
+let botonCuotas9=document.getElementById("cuotas__9");
+botonCuotas9.className="botones__finalizar-cuotas";
+botonCuotas9.onclick=()=>{
+    let contenedorCuotas=document.getElementById("insertar__total__interes");
+    contenedorCuotas.innerHTML="";
+    let totalEnCuotas=document.createElement("h2");
+    let porcentajeASumar=calcularIntereses(sumaDeProductosPrecio,30);
+    let totalConInteresSumado=sumaDeProductosPrecio+porcentajeASumar;
+    totalEnCuotas.innerHTML=`Total con interes sumado de corresponder:<br>$${totalConInteresSumado} en 9 cuotas de $${(totalConInteresSumado/9).toFixed(2)}`;
+    contenedorCuotas.appendChild(totalEnCuotas);
+    finalizarCompra();
+}
+
+let botonCuotas12=document.getElementById("cuotas__12");
+botonCuotas12.className="botones__finalizar-cuotas";
+botonCuotas12.onclick=()=>{
+    let contenedorCuotas=document.getElementById("insertar__total__interes");
+    contenedorCuotas.innerHTML="";
+    let totalEnCuotas=document.createElement("h2");
+    let porcentajeASumar=calcularIntereses(sumaDeProductosPrecio,40);
+    let totalConInteresSumado=sumaDeProductosPrecio+porcentajeASumar;
+    totalEnCuotas.innerHTML=`Total con interes sumado de corresponder:<br>$${totalConInteresSumado} en 12 cuotas de $${(totalConInteresSumado/12).toFixed(2)}`;
+    contenedorCuotas.appendChild(totalEnCuotas);
+    finalizarCompra();
+}
+

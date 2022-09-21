@@ -8,20 +8,92 @@
 
     <title>Carrito de supermercado con calculadora de interes-Santilan Martin</title>
 </head>
-<body>
+<body id="10">
+    <header class="header" id="header-">
+        <h1 class="header__titulo">Bienvenidos a Supermercados El Ahorro</h1> 
+        <img src="./imagenes/carro.png" alt="carrito-supermercado">
+    </header>
     <main class="main" id="main">
             <h1>HAGA SU COMPRA Y CALCULE EL PAGO</h1>
-            <p class="main__text">Bienvenidos a Supermercados <span>ElAhorro</span>. Para comenzar su lista de compras online oprima el boton, vaya cargando el nombre del producto, la cantidad que lleva
-                y el precio. <br> Al final se le mostrara el valor total, donde usted podra elegir entre estas opciones :
+            <p class="main__text">Por el momento estos son los productos que tenemos disponibles.
+                <br> Al final se le mostrara el valor total, donde usted podra elegir entre estas opciones :
                 Pagar en 1 cuota donde no hay interes, en 3 hay 15% , en 6 hay 20% , en 9 hay 30% y en 12 hay 40%.
                 Recuerde que tiene solamente para elegir  1,3,6,9 o 12 cuotas.
                 Gracias por su compra.
             </p>
-            
-        <button class="main__button" id="boton-comenzar">COMENZAR</button>
+            <section class="main__cards" id="main-cards">
+                <div class="main__cards__productos">
+                    <img src="./imagenes/cafe.webp" alt="cafe">
+                    <div class="main__cards__precio-nombre">
+                        <p>Cafe Premium</p>
+                        <h2 class="main__cards__precio" id="main-cards-precio">$350</h2>
+                        
+                    </div>
+                        <label for="cafe">Cantidad: </label>
+                        <input type="number" id="cantidad-cafe" name="cafe">
+                    <button class="main__cards__button" id="agregar-cafe">Agregar</button>
+
+                </div>
+                <div class="main__cards__productos">
+                    <img src="imagenes/manteca.webp" alt="manteca">
+                    <div  class="main__cards__precio-nombre">
+                        <p>Manteca tipo A</p>
+                        <h2 class="main__cards__precio" id="main-cards-precio">$200</h2>
+                    </div>
+                        <label for="cafe">Cantidad: </label>
+                        <input type="number" id="cantidad-manteca" name="cafe">
+                    <button class="main__cards__button" id="agregar-manteca">Agregar</button>
+                </div>
+                <div class="main__cards__productos">
+                    <img src="./imagenes/vino.webp" alt="vino">
+                    <div class="main__cards__precio-nombre">
+                        <p>Vino Especial</p>
+                        <h2 class="main__cards__precio" id="main-cards-precio">$1200</h2>
+                    </div>
+                        <label for="cafe">Cantidad: </label>
+                        <input type="number" id="cantidad-vino" name="cafe">
+                    <button class="main__cards__button" id="agregar-vino">Agregar</button>
+                </div>
+                <div class="main__cards__productos">
+                    <img src="./imagenes/heladera.webp" alt="heladera">
+                    <div class="main__cards__precio-nombre">
+                        <p>Heladera Samsung</p>
+                        <h2 class="main__cards__precio" id="main-cards-precio">$200.000</h2>
+                    </div>
+                        <label for="cafe">Cantidad: </label>
+                        <input type="number" id="cantidad-heladera" name="cafe">
+                    <button class="main__cards__button" id="agregar-heladera">Agregar</button>
+                </div>
+                
+                
+            </section>
+        <label for="suma">Total $ :</label>
+        <input type="number" id="suma__total" class="input__forma">
+        <button class="main__button" id="boton-comenzar">IR AL CARRITO</button>
+        <button id="seguir" class="main__button">SEGUIR COMPRA</button>
+        <div class="main__contenedor" id="contenedor-mensaje"></div>
+        
     </main>
-
-
+    <section class="menu__carrito__contenedor " id="menu__carrito__contenedor-id">
+        <section class="menu__carrito" id="carrito__mostrar">
+            <h2>CARRITO</h2>
+            <p>¿En cuantas cuotas desea pagar?</p> 
+                <section class="menu__carrito__botones">
+                    <button id="cuotas__1">1 Cuota|Sin interes</button>
+                <button id="cuotas__3">3 Cuotas|15% interes</button>
+                <button id="cuotas__6">6 Cuotas|20% interes</button>
+                <button id="cuotas__9">9 Cuotas|30% interes</button>
+                <button id="cuotas__12">12 Cuotas|40% interes</button>
+                </section>
+                
+            <h2 class="menu__subtotal">Subtotal:</h2>
+            <section id="insertar__total"></section>
+            <section id="insertar__total__interes"></section>
+        </section>
+        
+    </section>
+    
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="index.js"></script>
 </body>
 </html>
