@@ -22,96 +22,26 @@ class Producto{
         nombre:"Cafe",
         precio:350,
         cantidad:0,
+        imagen:"./imagenes/cafe.webp",
         calcularCosto(){
         cantidad * precio;
         
     }
     },
-    {nombre:"Manteca",precio:200,cantidad:0,calcularCosto(){
+    {nombre:"Manteca",precio:200,cantidad:0,imagen:"./imagenes/manteca.webp",calcularCosto(){
         cantidad*precio;
     }},
-    {nombre:"Vino",precio:1200,cantidad:0,calcularCosto(){
+    {nombre:"Vino",precio:1200,cantidad:0,imagen:"./imagenes/vino.webp",calcularCosto(){
         this.cantidad*this.precio;
     }},
-    {nombre:"Heladera",precio:200000,cantidad:0,calcularCosto(){
+    {nombre:"Heladera",precio:200000,cantidad:0,imagen:"./imagenes/heladera.webp",calcularCosto(){
         cantidad*precio;
     }}];
 
 
 
-//Con esta funcion el usuario registra la cantidad de productos que lleva,hasta que la variable decision ya no sea SI.
-/*
-function registroProducto(){
-    let productos=[];
-    let decision="si"
-    
-    while(decision=="SI" || decision=="si"){
-    
-        let nombre=prompt("Ingrese el producto elegido: ");
-        while(!isNaN(nombre)){
-            nombre=prompt("ERROR,Ingrese solamente caracteres y no otro valor: ");
-        }
-        let cantidad=parseInt(prompt("Ingrese la cantidad que lleva del producto elegido: "));
-        while(cantidad<=0 || isNaN(cantidad)){
-            cantidad=prompt("Error,ingrese la cantidad que lleva del producto elegido,siendo valores numericos: ");
-        }
-        
-        let precio=parseInt(prompt("Ingrese el precio que tiene:"));
-        while(precio<=0 || isNaN(precio)){
-            precio=prompt("Error,Ingrese un valor numerico: ");
-        }
-        
-        
-        nuevoProducto= new Producto(nombre,cantidad,precio);
-        
-        productos.push(nuevoProducto);
-        decision=prompt("¿Desea seguir agregando productos? Indique SI para continuar o cualquier otra para terminar.")
-        
-        
-    };
-    
-    return productos;
-    
-}
-*/
 
-function porcentajeInteres(){
-    
-    
-    let cuotasSeleccionadas=parseInt(prompt("Ingrese la cantidad de cuotas que desea abonar: "));
-    let porcentaje=[];
-    
-    
-    while(cuotasSeleccionadas !=1 && cuotasSeleccionadas!=3 && cuotasSeleccionadas!=6 && cuotasSeleccionadas!=9 && cuotasSeleccionadas!=12){
-        cuotasSeleccionadas=prompt("Por favor elija entre 1,3,6,9 o 12 cuotas.");
-    }
-    
-    /*Forma de calcular en cuotas el total.
-    Cuando el usuario selecciona las cuotas se suma a
-    un array con dos indices el indice [0] va a ser rellenado con el monto de interes y el indice [1] con la cantidad de cuotas.
-    Despues al acceder al array calculo el interes y cuotas en base al indice */
-    if(cuotasSeleccionadas==3){
-        porcentaje.push(15,3);
-        
-        
-    }else if(cuotasSeleccionadas==6){
-        porcentaje.push(20,6,"cuotas ");
-        
-    }else if(cuotasSeleccionadas==9){
-        porcentaje.push(30,9,"cuotas ");
-        
-    }else if(cuotasSeleccionadas==12){
-        porcentaje.push(40,12,"cuotas ");
-    }else{
-        porcentaje.push(0,1,"cuota ");
-       
-        
-    }
-    
-    
-    
-    return porcentaje;
-}
+
 // Funcion que calcula el porcentaje de interes, usa dos parametros el monto que va sufrir el incremento y el porcentaje.
 function calcularIntereses(monto,interes){
     return monto*interes/100;
@@ -126,13 +56,22 @@ function sumarCantidadesProducto(indice,id){
 }
 
 // Variable global que uso como acumulador de precios de los productos.
-let sumaDeProductosPrecio=0;
+
+    let sumaDeProductosPrecio=0;
+    sumaDeProductosPrecio=sumaDeProductosPrecio+Number(sessionStorage.getItem("total"));
+
+
 
 // Esta funcion va a ir llenando el acumulador para luego mostrar el total.
 function sumarPrecioProducto(indice,id){
+    
     sumaDeProductosPrecio=sumaDeProductosPrecio+(PRODUCTOS[indice].precio*parseInt(document.getElementById(id).value));
+    let totalAAlmacenar=sumaDeProductosPrecio;
+    sessionStorage.setItem("total",totalAAlmacenar);
+    return totalAAlmacenar
+    
 }
-
+    
 
 // variable global carrito donde ire guardando cada producto agregado por los botones agregar.
 let carrito=[];
@@ -143,17 +82,26 @@ function llenarCarrito(productoNombre){
     carrito.push(productoElegido);
     
 }
-function mostrarCarrito(producto,id){
+function mostrarCarrito(producto,indice,idMensaje){
+    
+        
         let cantidad=document.createElement("div");
         cantidad.className="main__contenedor__appenchild";
-        cantidad.innerHTML=`<p>Agrego al carrito: ${producto} -CANTIDAD: ${document.getElementById(id).value}`;
-        let contenedor=document.getElementById("contenedor-mensaje");
+        let contenedor=document.getElementById(idMensaje);
+        contenedor.innerHTML="";
+        cantidad.innerHTML=`<p>Agrego al carrito: ${producto} -CANTIDAD: ${PRODUCTOS[indice].cantidad}</p><img class="imagen__producto__subtotal" src="${PRODUCTOS[indice].imagen}">`;
         contenedor.append(cantidad);
         
-
+        
+            
+        
+        
+        
+        
 }
 function mostrarTotal(){
-    document.getElementById("suma__total").value=sumaDeProductosPrecio;
+    document.getElementById("suma__total").value=sessionStorage.getItem("total");
+    
 }
 
 
@@ -161,15 +109,13 @@ function mostrarTotal(){
 
 let botonCafe=document.getElementById("agregar-cafe");
 botonCafe.onclick=()=>{
-    
-    llenarCarrito("Cafe");
-    sumarCantidadesProducto(0,"cantidad-cafe");
-    sumarPrecioProducto(0,"cantidad-cafe");
-    mostrarCarrito("CAFE","cantidad-cafe");
-    mostrarTotal();
-        
-    
-}
+
+        llenarCarrito("Cafe");
+        sumarCantidadesProducto(0,"cantidad-cafe");
+        sumarPrecioProducto(0,"cantidad-cafe");
+        mostrarCarrito("CAFE",0,"contenedor-mensaje-cafe");
+        mostrarTotal();    
+    }
 
 
 let botonManteca=document.getElementById("agregar-manteca");
@@ -177,7 +123,7 @@ let botonManteca=document.getElementById("agregar-manteca");
         llenarCarrito("Manteca");
         sumarCantidadesProducto(1,"cantidad-manteca");
         sumarPrecioProducto(1,"cantidad-manteca");
-        mostrarCarrito("MANTECA","cantidad-manteca");
+        mostrarCarrito("MANTECA",1,"contenedor-mensaje-manteca");
         mostrarTotal();
     }    
 
@@ -186,7 +132,7 @@ let botonVino=document.getElementById("agregar-vino");
         llenarCarrito("Vino");
         sumarCantidadesProducto(2,"cantidad-vino");
         sumarPrecioProducto(2,"cantidad-vino");
-        mostrarCarrito("VINO","cantidad-vino");
+        mostrarCarrito("VINO",2,"contenedor-mensaje-vino");
         mostrarTotal();
     }
 
@@ -197,7 +143,7 @@ botonHeladera.onclick=()=>{
     llenarCarrito("Heladera");
     sumarCantidadesProducto(3,"cantidad-heladera");
     sumarPrecioProducto(3,"cantidad-heladera");
-    mostrarCarrito("HELADERA-SAMSUNG","cantidad-heladera");
+    mostrarCarrito("HELADERA",3,"contenedor-mensaje-heladera");
     mostrarTotal();
     
 }
@@ -207,35 +153,6 @@ botonHeladera.onclick=()=>{
 
 
 
-function main(){
-    //let productos= stockProductos();
-    //let totalApagar=carrito.reduce((costoTotal,elemento)=>costoTotal+elemento.calcularCosto(),0);// Uso metodo REDUCE para ir sumando el total de cada producto por la cantidad que lleva.
-    //let interes=porcentajeInteres();//Calculo el interes de existir y lo guardo en un array con un indice determinado para cada accion que quiero que el programa ejecute.
-    let productosQueLleva=[];// Almaceno una lista con los productos elegidos.
-    let contador=1;
-    carrito.forEach((producto)=>{
-        
-        productosQueLleva.push(`${contador}-${producto.nombre} - cantidad: ${producto.cantidad}<br>`);
-        contador++;
-    });// Aqui almacene el nombre del producto que lleva + la cantidad, para luego mostrar por una variable mensaje-final.
-    /*
-    let interesesASumar=calcularIntereses(totalApagar,interes[0]);//Aqui el indice 0 indica el porcentaje de interes.
-    let totalApagarConInteres=totalApagar+interesesASumar;
-    let totalApagarEnCuotas=totalApagarConInteres/interes[1];//Aqui el indice 1 indica la cantidad de cuotas||El indice [2] es un mensaje que dira cuota o cuotas.
-    */
-    
-    // Aqui estoy enlazando el js con el html para luego imprimir todo en un parrafo.
-    let cantidadFinalProductos=PRODUCTOS.reduce((lista,producto)=>lista+producto.cantidad,0);
-    let contenedor=document.getElementById("contenedor-mensaje");
-    contenedor.innerHTML="";
-    let mensaje=document.createElement("p");
-    
-    mensaje.id="mensaje-final";
-    mensaje.className="card";
-    mensaje.innerHTML=`Productos :<br> ${productosQueLleva.join(('')) }`;
-    contenedor.appendChild(mensaje);
-    return mensaje;
-}
 
 
 
@@ -276,6 +193,7 @@ function finalizarCompra(){
         Swal.fire('Gracias por su compra, se recargara la pagina.');
         function recargarPagina(){
             location.reload();
+            sessionStorage.clear("total");
         }
         setTimeout(recargarPagina, 4000);
         
@@ -283,6 +201,8 @@ function finalizarCompra(){
     }
 
 }
+
+
 
 // BOTONES QUE SUMAN EL TOTAL MAS EL INTERES ELEGIDO, DE MOMENTO CREE LOS BOTONES REPITIENDO CODIGO, DEBO CORREGIRLO PARA NO REPETIR.
 
@@ -351,3 +271,4 @@ botonCuotas12.onclick=()=>{
     finalizarCompra();
 }
 
+// FALTA VALIDAR INPUTS Y ESCRIBIR CODIGO MAS LIMPIO.
