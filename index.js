@@ -58,6 +58,8 @@ function sumarCantidadesProducto(indice,id){
 // Variable global que uso como acumulador de precios de los productos.
 
     let sumaDeProductosPrecio=0;
+    /* Como cada vez que se recarga la pag. la variable vuelve a 0, automaticamente le agrego la sessionstorage que contiene
+    el monto anterior a recargar asi puedo seguir sumando productos aunque recargue el navegador. */
     sumaDeProductosPrecio=sumaDeProductosPrecio+Number(sessionStorage.getItem("total"));
 
 
@@ -68,7 +70,7 @@ function sumarPrecioProducto(indice,id){
     sumaDeProductosPrecio=sumaDeProductosPrecio+(PRODUCTOS[indice].precio*parseInt(document.getElementById(id).value));
     let totalAAlmacenar=sumaDeProductosPrecio;
     sessionStorage.setItem("total",totalAAlmacenar);
-    return totalAAlmacenar
+    
     
 }
     
@@ -83,22 +85,15 @@ function llenarCarrito(productoNombre){
     
 }
 function mostrarCarrito(producto,indice,idMensaje){
-    
-        
+
         let cantidad=document.createElement("div");
         cantidad.className="main__contenedor__appenchild";
         let contenedor=document.getElementById(idMensaje);
         contenedor.innerHTML="";
         cantidad.innerHTML=`<p>Agrego al carrito: ${producto} -CANTIDAD: ${PRODUCTOS[indice].cantidad}</p><img class="imagen__producto__subtotal" src="${PRODUCTOS[indice].imagen}">`;
-        contenedor.append(cantidad);
-        
-        
-            
-        
-        
-        
-        
+        contenedor.append(cantidad);       
 }
+// Funcion que va mostrando el subtotal antes de abrir el carrito.
 function mostrarTotal(){
     document.getElementById("suma__total").value=sessionStorage.getItem("total");
     
@@ -106,7 +101,7 @@ function mostrarTotal(){
 
 
 
-
+// Botones que toman id de inputs, para agregar al carrito los productos,sumar cantidades y sumar el subtotal. E imprimir por DOM el producto elegido.
 let botonCafe=document.getElementById("agregar-cafe");
 botonCafe.onclick=()=>{
 
