@@ -73,6 +73,12 @@ function sumarPrecioProducto(indice,id){
     
     
 }
+function restarProducto(indice){
+    PRODUCTOS[indice].cantidad=PRODUCTOS[indice].cantidad-1;
+    sumaDeProductosPrecio=sumaDeProductosPrecio-PRODUCTOS[indice].precio;
+    let totalAAlmacenar=sumaDeProductosPrecio;
+    sessionStorage.setItem("total",totalAAlmacenar);
+}
     
 
 // variable global carrito donde ire guardando cada producto agregado por los botones agregar.
@@ -101,6 +107,8 @@ function mostrarTotal(){
 
 
 
+
+
 // Botones que toman id de inputs, para agregar al carrito los productos,sumar cantidades y sumar el subtotal. E imprimir por DOM el producto elegido.
 let botonCafe=document.getElementById("agregar-cafe");
 botonCafe.onclick=()=>{
@@ -112,6 +120,13 @@ botonCafe.onclick=()=>{
         mostrarTotal();    
     }
 
+let botonRestaCafe=document.getElementById("eliminar-cafe");
+botonRestaCafe.onclick=()=>{
+    restarProducto(0);
+    mostrarCarrito("CAFE",0,"contenedor-mensaje-cafe");
+    mostrarTotal();
+}
+
 
 let botonManteca=document.getElementById("agregar-manteca");
     botonManteca.onclick=()=>{
@@ -121,6 +136,13 @@ let botonManteca=document.getElementById("agregar-manteca");
         mostrarCarrito("MANTECA",1,"contenedor-mensaje-manteca");
         mostrarTotal();
     }    
+let botonRestaManteca=document.getElementById("eliminar-manteca");
+botonRestaManteca.onclick=()=>{
+        restarProducto(1);
+        mostrarCarrito("MANTECA",1,"contenedor-mensaje-manteca");
+        mostrarTotal();
+}
+    
 
 let botonVino=document.getElementById("agregar-vino");
     botonVino.onclick=()=>{
@@ -128,6 +150,13 @@ let botonVino=document.getElementById("agregar-vino");
         sumarCantidadesProducto(2,"cantidad-vino");
         sumarPrecioProducto(2,"cantidad-vino");
         mostrarCarrito("VINO",2,"contenedor-mensaje-vino");
+        mostrarTotal();
+    }
+
+let botonRestaVino=document.getElementById("eliminar-vino");
+botonRestaVino.onclick=()=>{
+        restarProducto(2);
+        mostrarCarrito("CAFE",0,"contenedor-mensaje-vino");
         mostrarTotal();
     }
 
@@ -142,6 +171,14 @@ botonHeladera.onclick=()=>{
     mostrarTotal();
     
 }
+
+let botonRestaHeladera=document.getElementById("eliminar-heladera");
+botonRestaHeladera.onclick=()=>{
+        restarProducto(3);
+        mostrarCarrito("HELADERA",3,"contenedor-mensaje-heladera");
+        mostrarTotal();
+    }
+
 
 
 
