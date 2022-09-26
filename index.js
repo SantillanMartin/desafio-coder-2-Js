@@ -47,12 +47,18 @@ function calcularIntereses(monto,interes){
     return monto*interes/100;
     
     
-}
+}   
+    PRODUCTOS.forEach((producto)=>{
+        producto.cantidad=producto.cantidad+Number(sessionStorage.getItem(producto.nombre));
+    })
+    
 
 // Esta funcion suma cada producto elegido y los guarda en el valor cantidad de cada objeto. El parametro indice es el indice del objeto y el id es el id del input del objeto en el html.
-function sumarCantidadesProducto(indice,id){
-    PRODUCTOS[indice].cantidad=PRODUCTOS[indice].cantidad+parseInt(document.getElementById(id).value);
+function sumarCantidadesProducto(indice,id,nombreProducto){
     
+    PRODUCTOS[indice].cantidad=PRODUCTOS[indice].cantidad+parseInt(document.getElementById(id).value);
+    let sumaCantidadIndividual=PRODUCTOS[indice].cantidad;
+    sessionStorage.setItem(nombreProducto,sumaCantidadIndividual);
 }
 
 // Variable global que uso como acumulador de precios de los productos.
@@ -74,10 +80,13 @@ function sumarPrecioProducto(indice,id){
     
 }
 function restarProducto(indice){
-    PRODUCTOS[indice].cantidad=PRODUCTOS[indice].cantidad-1;
-    sumaDeProductosPrecio=sumaDeProductosPrecio-PRODUCTOS[indice].precio;
-    let totalAAlmacenar=sumaDeProductosPrecio;
-    sessionStorage.setItem("total",totalAAlmacenar);
+    
+        PRODUCTOS[indice].cantidad=PRODUCTOS[indice].cantidad-1;
+        sumaDeProductosPrecio=sumaDeProductosPrecio-PRODUCTOS[indice].precio;
+        let totalAAlmacenar=sumaDeProductosPrecio;
+        sessionStorage.setItem("total",totalAAlmacenar);
+    
+    
 }
     
 
@@ -90,6 +99,7 @@ function llenarCarrito(productoNombre){
     carrito.push(productoElegido);
     
 }
+
 function mostrarCarrito(producto,indice,idMensaje){
 
         let cantidad=document.createElement("div");
@@ -97,8 +107,15 @@ function mostrarCarrito(producto,indice,idMensaje){
         let contenedor=document.getElementById(idMensaje);
         contenedor.innerHTML="";
         cantidad.innerHTML=`<p>Agrego al carrito: ${producto} -CANTIDAD: ${PRODUCTOS[indice].cantidad}</p><img class="imagen__producto__subtotal" src="${PRODUCTOS[indice].imagen}">`;
-        contenedor.append(cantidad);       
+        contenedor.append(cantidad);    
+        if(PRODUCTOS[indice].cantidad<1){
+            contenedor.innerHTML="";
+        }
+        sessionStorage.setItem("mostrar",cantidad.innerHTML);
+        return cantidad;
 }
+
+
 // Funcion que va mostrando el subtotal antes de abrir el carrito.
 function mostrarTotal(){
     document.getElementById("suma__total").value=sessionStorage.getItem("total");
@@ -114,7 +131,7 @@ let botonCafe=document.getElementById("agregar-cafe");
 botonCafe.onclick=()=>{
 
         llenarCarrito("Cafe");
-        sumarCantidadesProducto(0,"cantidad-cafe");
+        sumarCantidadesProducto(0,"cantidad-cafe","Cafe");
         sumarPrecioProducto(0,"cantidad-cafe");
         mostrarCarrito("CAFE",0,"contenedor-mensaje-cafe");
         mostrarTotal();    
@@ -131,7 +148,7 @@ botonRestaCafe.onclick=()=>{
 let botonManteca=document.getElementById("agregar-manteca");
     botonManteca.onclick=()=>{
         llenarCarrito("Manteca");
-        sumarCantidadesProducto(1,"cantidad-manteca");
+        sumarCantidadesProducto(1,"cantidad-manteca","Manteca");
         sumarPrecioProducto(1,"cantidad-manteca");
         mostrarCarrito("MANTECA",1,"contenedor-mensaje-manteca");
         mostrarTotal();
@@ -147,7 +164,7 @@ botonRestaManteca.onclick=()=>{
 let botonVino=document.getElementById("agregar-vino");
     botonVino.onclick=()=>{
         llenarCarrito("Vino");
-        sumarCantidadesProducto(2,"cantidad-vino");
+        sumarCantidadesProducto(2,"cantidad-vino","Vino");
         sumarPrecioProducto(2,"cantidad-vino");
         mostrarCarrito("VINO",2,"contenedor-mensaje-vino");
         mostrarTotal();
@@ -165,7 +182,7 @@ botonRestaVino.onclick=()=>{
     let botonHeladera=document.getElementById("agregar-heladera");
 botonHeladera.onclick=()=>{
     llenarCarrito("Heladera");
-    sumarCantidadesProducto(3,"cantidad-heladera");
+    sumarCantidadesProducto(3,"cantidad-heladera","Heladera");
     sumarPrecioProducto(3,"cantidad-heladera");
     mostrarCarrito("HELADERA",3,"contenedor-mensaje-heladera");
     mostrarTotal();

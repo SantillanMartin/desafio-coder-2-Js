@@ -78,6 +78,7 @@ body{
     border-radius: 0.4rem;
     background-color: rgba(240, 3, 3, 0.623);
     transition: 0.3s;
+    margin: 0.5rem 0;
 }
 .main__cards__button:hover{
     box-shadow: 1px 1px 7px gray;
