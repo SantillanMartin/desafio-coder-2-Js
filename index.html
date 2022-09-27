@@ -10,8 +10,19 @@
 </head>
 <body id="10">
     <header class="header" id="header-">
-        <h1 class="header__titulo">Bienvenidos a Supermercados El Ahorro</h1> 
-        <img src="./imagenes/carro.png" alt="carrito-supermercado">
+        <section class="header__contenedor">
+            <section class="header__contenedor--titulo-img">
+                <h1 class="header__titulo">Bienvenidos a Supermercados El Ahorro</h1> 
+                <img src="./imagenes/aguacate.png" alt="palta">
+            </section>
+            
+            <section class="header__contenedor__img-subtitulo">
+                <img src="./imagenes/carro.png" alt="carrito-supermercado" id="boton-comenzar">
+                <h3>carrito</h3>
+            </section>
+            
+        </section>
+        
     </header>
     <main class="main" id="main">
             <h1>HAGA SU COMPRA Y CALCULE EL PAGO</h1>
@@ -72,21 +83,25 @@
             </section>
         <label for="suma">Subtotal hasta el momento $ :</label>
         <input type="number" id="suma__total" class="input__forma">
-        <button class="main__button" id="boton-comenzar">IR AL CARRITO</button>
+                    
+                    <!--Botones para mostrar carrito -->
+        <!--<button class="main__button" id="boton-comenzar">IR AL CARRITO</button>-->
         <button id="seguir" class="main__button">SEGUIR COMPRA</button>
-        <section class="main__mostrar__productos__contenedor">
-            <div class="main__contenedor" id="contenedor-mensaje-cafe"></div>
-            <div class="main__contenedor" id="contenedor-mensaje-manteca"></div>
-            <div class="main__contenedor" id="contenedor-mensaje-vino"></div>
-            <div class="main__contenedor" id="contenedor-mensaje-heladera"></div>
-        </section>
+        
+        
         
         
         
     </main>
     <section class="menu__carrito__contenedor " id="menu__carrito__contenedor-id">
         <section class="menu__carrito" id="carrito__mostrar">
-            <h2>CARRITO</h2>
+            <section class="main__mostrar__productos__contenedor">
+                <div class="main__contenedor" id="contenedor-mensaje-cafe"></div>
+                <div class="main__contenedor" id="contenedor-mensaje-manteca"></div>
+                <div class="main__contenedor" id="contenedor-mensaje-vino"></div>
+                <div class="main__contenedor" id="contenedor-mensaje-heladera"></div>
+            </section>
+            <h2 class="menu__carrito__h2">CARRITO</h2>
             <p>¿En cuantas cuotas desea pagar?</p> 
                 <section class="menu__carrito__botones">
                     <button id="cuotas__1">1 Cuota|Sin interes</button>

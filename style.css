@@ -9,7 +9,7 @@
 body{
     font-family: 'Poppins', sans-serif;
     color: rgb(33, 49, 6);
-    background: linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
+    
     
     
 }
@@ -19,17 +19,48 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: wheat;
+    background-color: rgb(255, 253, 249);
 }
 
-.header img{
-    width: 6rem;
-    height: 5rem;
+.header__contenedor{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__contenedor img{
+    width: 3rem;
+    height: 3rem;
+}
+
+.header__contenedor--titulo-img{
+    display: flex;
+    align-items: center;
+    width: 30%;
+    justify-content: space-evenly;
+}
+.header__contenedor__img-subtitulo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header__contenedor__img-subtitulo img{
+    width: 3rem;
+    height: 3rem;
+    transition: 0.4s;
+}
+.header__contenedor__img-subtitulo img:hover{
+    cursor: pointer;
+    box-shadow: 1px 1px 10px gray;
+    border-radius: 0.4rem;
+    background-color: rgb(236, 159, 159);
+
 }
 
 .main{
     width: 100%;
-    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -135,12 +166,14 @@ body{
 }
 
 .menu__carrito{
-    width: 30rem;
+    width: auto;
     height: 49.6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     border: solid black;
     position: absolute;
     top: 0;
-    
     background-color:white;
     z-index: 10;
     transition: 0.7s;
@@ -149,10 +182,15 @@ body{
 }
 .menu__carrito__botones{
     height: 5rem;
+    width: 100%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     border: solid black 1px;
+}
+
+.menu__carrito__h2{
+    margin: 0.8rem 0;
 }
 .botones__finalizar-cuotas{
     width: 5rem;
@@ -180,6 +218,9 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-around;
+    margin: 1.4rem;
+    border: solid 1px gray;
+    
 }
 .imagen__producto__subtotal{
     width: 4rem;
@@ -187,7 +228,6 @@ body{
 }
 .main__mostrar__productos__contenedor{
     width: 50rem;
-    border: solid 1px rgb(100, 97, 97);
     display: flex;
     flex-direction: column;
     

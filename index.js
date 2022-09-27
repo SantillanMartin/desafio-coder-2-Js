@@ -79,12 +79,16 @@ function sumarPrecioProducto(indice,id){
     
     
 }
-function restarProducto(indice){
-    
-        PRODUCTOS[indice].cantidad=PRODUCTOS[indice].cantidad-1;
-        sumaDeProductosPrecio=sumaDeProductosPrecio-PRODUCTOS[indice].precio;
-        let totalAAlmacenar=sumaDeProductosPrecio;
-        sessionStorage.setItem("total",totalAAlmacenar);
+function restarProducto(indice,nombreProducto){
+        if(PRODUCTOS[indice].cantidad>0){
+            PRODUCTOS[indice].cantidad=PRODUCTOS[indice].cantidad-1;
+            sumaDeProductosPrecio=sumaDeProductosPrecio-PRODUCTOS[indice].precio;
+            let totalAAlmacenar=sumaDeProductosPrecio;
+            sessionStorage.setItem("total",totalAAlmacenar);
+            let sumaCantidadIndividual=PRODUCTOS[indice].cantidad;
+            sessionStorage.setItem(nombreProducto,sumaCantidadIndividual);
+        }
+        
     
     
 }
@@ -111,8 +115,7 @@ function mostrarCarrito(producto,indice,idMensaje){
         if(PRODUCTOS[indice].cantidad<1){
             contenedor.innerHTML="";
         }
-        sessionStorage.setItem("mostrar",cantidad.innerHTML);
-        return cantidad;
+        
 }
 
 
@@ -139,7 +142,7 @@ botonCafe.onclick=()=>{
 
 let botonRestaCafe=document.getElementById("eliminar-cafe");
 botonRestaCafe.onclick=()=>{
-    restarProducto(0);
+    restarProducto(0,"Cafe");
     mostrarCarrito("CAFE",0,"contenedor-mensaje-cafe");
     mostrarTotal();
 }
@@ -155,7 +158,7 @@ let botonManteca=document.getElementById("agregar-manteca");
     }    
 let botonRestaManteca=document.getElementById("eliminar-manteca");
 botonRestaManteca.onclick=()=>{
-        restarProducto(1);
+        restarProducto(1,"Manteca");
         mostrarCarrito("MANTECA",1,"contenedor-mensaje-manteca");
         mostrarTotal();
 }
@@ -172,8 +175,8 @@ let botonVino=document.getElementById("agregar-vino");
 
 let botonRestaVino=document.getElementById("eliminar-vino");
 botonRestaVino.onclick=()=>{
-        restarProducto(2);
-        mostrarCarrito("CAFE",0,"contenedor-mensaje-vino");
+        restarProducto(2,"Vino");
+        mostrarCarrito("VINO",2,"contenedor-mensaje-vino");
         mostrarTotal();
     }
 
@@ -184,14 +187,14 @@ botonHeladera.onclick=()=>{
     llenarCarrito("Heladera");
     sumarCantidadesProducto(3,"cantidad-heladera","Heladera");
     sumarPrecioProducto(3,"cantidad-heladera");
-    mostrarCarrito("HELADERA",3,"contenedor-mensaje-heladera");
+    mostrarCarrito("HELADERA",3,"contenedor-mensaje-heladera","eliminar-heladera");
     mostrarTotal();
     
 }
 
 let botonRestaHeladera=document.getElementById("eliminar-heladera");
 botonRestaHeladera.onclick=()=>{
-        restarProducto(3);
+        restarProducto(3,"Heladera");
         mostrarCarrito("HELADERA",3,"contenedor-mensaje-heladera");
         mostrarTotal();
     }
@@ -213,7 +216,7 @@ let botonComenzar=document.getElementById("boton-comenzar");
     
 
     let carritoDiv=document.getElementById("carrito__mostrar");
-    carritoDiv.style.top=0;
+    carritoDiv.style.top="10px";
     
     let contenedorCarrito=document.getElementById("insertar__total");
     let mostrarTotalPrecio=document.createElement("h2");
@@ -227,6 +230,7 @@ let botonSeguir=document.getElementById("seguir");
 botonSeguir.onclick=()=>{
     let carritoDiv=document.getElementById("carrito__mostrar");
     carritoDiv.style.top='-200%';
+    
     
     
 }
@@ -243,8 +247,9 @@ function finalizarCompra(){
         function recargarPagina(){
             location.reload();
             sessionStorage.clear("total");
+            
         }
-        setTimeout(recargarPagina, 4000);
+        setTimeout(recargarPagina,2000);
         
 
     }
