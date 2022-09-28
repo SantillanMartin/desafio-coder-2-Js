@@ -167,7 +167,7 @@ body{
 
 .menu__carrito{
     width: auto;
-    height: 49.6rem;
+    height: 36.6rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -211,6 +211,10 @@ body{
     align-items: center;
     text-align: center;
 }
+
+#vaciar-compra{
+    display: none;
+}
 .menu__subtotal{
     text-align: center;
 }
@@ -230,6 +234,8 @@ body{
     width: 50rem;
     display: flex;
     flex-direction: column;
+    overflow:scroll;
+    align-items: center;
     
 }
 .main__contenedor{

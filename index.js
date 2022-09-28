@@ -53,6 +53,8 @@ function calcularIntereses(monto,interes){
     })
     
 
+
+
 // Esta funcion suma cada producto elegido y los guarda en el valor cantidad de cada objeto. El parametro indice es el indice del objeto y el id es el id del input del objeto en el html.
 function sumarCantidadesProducto(indice,id,nombreProducto){
     
@@ -115,6 +117,11 @@ function mostrarCarrito(producto,indice,idMensaje){
         if(PRODUCTOS[indice].cantidad<1){
             contenedor.innerHTML="";
         }
+        let contenedorCarrito=document.getElementById("insertar__total");
+        let mostrarTotalPrecio=document.createElement("h2");
+        contenedorCarrito.innerHTML="";
+        mostrarTotalPrecio.innerHTML=`$${sumaDeProductosPrecio}`;
+        contenedorCarrito.appendChild(mostrarTotalPrecio);
         
 }
 
@@ -137,7 +144,8 @@ botonCafe.onclick=()=>{
         sumarCantidadesProducto(0,"cantidad-cafe","Cafe");
         sumarPrecioProducto(0,"cantidad-cafe");
         mostrarCarrito("CAFE",0,"contenedor-mensaje-cafe");
-        mostrarTotal();    
+        mostrarTotal();
+        botonVaciarCarrito();  
     }
 
 let botonRestaCafe=document.getElementById("eliminar-cafe");
@@ -145,6 +153,7 @@ botonRestaCafe.onclick=()=>{
     restarProducto(0,"Cafe");
     mostrarCarrito("CAFE",0,"contenedor-mensaje-cafe");
     mostrarTotal();
+    
 }
 
 
@@ -207,7 +216,7 @@ botonRestaHeladera.onclick=()=>{
 
 
 
-
+// BOTON QUE MUESTRA EL CARRITO
 
 let botonComenzar=document.getElementById("boton-comenzar");
  botonComenzar.onclick=()=>{
@@ -218,14 +227,12 @@ let botonComenzar=document.getElementById("boton-comenzar");
     let carritoDiv=document.getElementById("carrito__mostrar");
     carritoDiv.style.top="10px";
     
-    let contenedorCarrito=document.getElementById("insertar__total");
-    let mostrarTotalPrecio=document.createElement("h2");
-    contenedorCarrito.innerHTML="";
-    mostrarTotalPrecio.innerHTML=`$${sumaDeProductosPrecio}`;
-    contenedorCarrito.appendChild(mostrarTotalPrecio);
+    
     
     
   }
+
+// BOTON QUE ESCONDE EL CARRITO PARA SEGUIR AGREGANDO PRODUCTOS
 let botonSeguir=document.getElementById("seguir");
 botonSeguir.onclick=()=>{
     let carritoDiv=document.getElementById("carrito__mostrar");
@@ -234,6 +241,8 @@ botonSeguir.onclick=()=>{
     
     
 }
+
+// BOTON QUE FINALIZA LA COMPRA, Y REINICIA EL STORAGE.
 
 function finalizarCompra(){
     let contenedorCuotas=document.getElementById("insertar__total__interes");
@@ -255,6 +264,7 @@ function finalizarCompra(){
     }
 
 }
+
 
 
 
