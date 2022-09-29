@@ -23,18 +23,37 @@ class Producto{
         precio:350,
         cantidad:0,
         imagen:"./imagenes/cafe.webp",
+        agregar:"agregar-cafe",
+        indice:0,
         calcularCosto(){
-        cantidad * precio;
-        
-    }
-    },
-    {nombre:"Manteca",precio:200,cantidad:0,imagen:"./imagenes/manteca.webp",calcularCosto(){
+        cantidad * precio;   
+    }},
+    
+    {   nombre:"Manteca",
+        precio:200,
+        cantidad:0,
+        imagen:"./imagenes/manteca.webp",
+        agregar:"agregar-manteca",
+        indice:1,
+        calcularCosto(){
         cantidad*precio;
     }},
-    {nombre:"Vino",precio:1200,cantidad:0,imagen:"./imagenes/vino.webp",calcularCosto(){
-        this.cantidad*this.precio;
+    {   nombre:"Vino",
+        precio:1200,
+        cantidad:0,
+        imagen:"./imagenes/vino.webp",
+        agregar:"agregar-vino",
+        indice:2,
+        calcularCosto(){
+        cantidad*precio;
     }},
-    {nombre:"Heladera",precio:200000,cantidad:0,imagen:"./imagenes/heladera.webp",calcularCosto(){
+    {   nombre:"Heladera",
+        precio:200000,
+        cantidad:0,
+        imagen:"./imagenes/heladera.webp",
+        agregar:"agregar-heladera",
+        indice:3,
+        calcularCosto(){
         cantidad*precio;
     }}];
 
@@ -49,7 +68,7 @@ function calcularIntereses(monto,interes){
     
 }   
     PRODUCTOS.forEach((producto)=>{
-        producto.cantidad=producto.cantidad+Number(sessionStorage.getItem(producto.nombre));
+        producto.cantidad+=Number(sessionStorage.getItem(producto.nombre));
     })
     
 
@@ -58,7 +77,7 @@ function calcularIntereses(monto,interes){
 // Esta funcion suma cada producto elegido y los guarda en el valor cantidad de cada objeto. El parametro indice es el indice del objeto y el id es el id del input del objeto en el html.
 function sumarCantidadesProducto(indice,nombreProducto){
     
-    PRODUCTOS[indice].cantidad=PRODUCTOS[indice].cantidad+1;
+    PRODUCTOS[indice].cantidad+=1;
     let sumaCantidadIndividual=PRODUCTOS[indice].cantidad;
     sessionStorage.setItem(nombreProducto,sumaCantidadIndividual);
 }
@@ -68,14 +87,14 @@ function sumarCantidadesProducto(indice,nombreProducto){
     let sumaDeProductosPrecio=0;
     /* Como cada vez que se recarga la pag. la variable vuelve a 0, automaticamente le agrego la sessionstorage que contiene
     el monto anterior a recargar asi puedo seguir sumando productos aunque recargue el navegador. */
-    sumaDeProductosPrecio=sumaDeProductosPrecio+Number(sessionStorage.getItem("total"));
+    sumaDeProductosPrecio+=Number(sessionStorage.getItem("total"));
 
 
 
 // Esta funcion va a ir llenando el acumulador para luego mostrar el total.
 function sumarPrecioProducto(indice){
     
-    sumaDeProductosPrecio=sumaDeProductosPrecio+PRODUCTOS[indice].precio;
+    sumaDeProductosPrecio+=PRODUCTOS[indice].precio;
     let totalAAlmacenar=sumaDeProductosPrecio;
     sessionStorage.setItem("total",totalAAlmacenar);
     
@@ -83,7 +102,7 @@ function sumarPrecioProducto(indice){
 }
 function restarProducto(indice,nombreProducto){
         if(PRODUCTOS[indice].cantidad>0){
-            PRODUCTOS[indice].cantidad=PRODUCTOS[indice].cantidad-1;
+            PRODUCTOS[indice].cantidad-=1;
             sumaDeProductosPrecio=sumaDeProductosPrecio-PRODUCTOS[indice].precio;
             let totalAAlmacenar=sumaDeProductosPrecio;
             sessionStorage.setItem("total",totalAAlmacenar);
@@ -114,9 +133,10 @@ function mostrarCarrito(producto,indice,idMensaje){
         contenedor.innerHTML="";
         cantidad.innerHTML=`<p>Agrego al carrito: ${producto} -CANTIDAD: ${PRODUCTOS[indice].cantidad}</p><img class="imagen__producto__subtotal" src="${PRODUCTOS[indice].imagen}">`;
         contenedor.append(cantidad);    
-        if(PRODUCTOS[indice].cantidad<1){
-            contenedor.innerHTML="";
-        }
+        
+        // Operador ternario que si elimino todos los productos elegidos del carrito borra el nodo contenedor.
+        PRODUCTOS[indice].cantidad<1 ? contenedor.innerHTML="" : contenedor;
+
         let contenedorCarrito=document.getElementById("insertar__total");
         let mostrarTotalPrecio=document.createElement("h2");
         contenedorCarrito.innerHTML="";
@@ -138,93 +158,25 @@ function mostrarSumaDeProductos(nombreProducto,id){
 }
 
 
-
-
-// Botones que toman id de inputs, para agregar al carrito los productos,sumar cantidades y sumar el subtotal. E imprimir por DOM el producto elegido.
-let botonCafe=document.getElementById("agregar-cafe");
-botonCafe.onclick=()=>{
-
-        llenarCarrito("Cafe");
-        sumarCantidadesProducto(0,"Cafe");
-        sumarPrecioProducto(0);
-        mostrarSumaDeProductos("Cafe","cantidad-cafe");
-        mostrarCarrito("CAFE",0,"contenedor-mensaje-cafe");
-        mostrarTotal();
-         
+// For each, que recorre el objeto PRODUCTOS y crea dos botones para agregar productos y eliminarlos del carrito.
+PRODUCTOS.forEach((producto)=>{
+    let botonAgregar=document.getElementById(`agregar-${producto.nombre}`);
+    let botonEliminar=document.getElementById(`eliminar-${producto.nombre}`);
+    botonAgregar.onclick=()=>{
+        llenarCarrito(producto.nombre);
+        sumarCantidadesProducto(producto.indice,producto.nombre);
+        sumarPrecioProducto(producto.indice);
+        mostrarSumaDeProductos(producto.nombre,`cantidad-${producto.nombre}`);
+        mostrarCarrito(producto.nombre,producto.indice,`contenedor-mensaje-${producto.nombre}`);
+        mostrarTotal();  
     }
-
-let botonRestaCafe=document.getElementById("eliminar-cafe");
-botonRestaCafe.onclick=()=>{
-    restarProducto(0,"Cafe");
-    mostrarCarrito("CAFE",0,"contenedor-mensaje-cafe");
-    mostrarTotal();
-    mostrarSumaDeProductos("Cafe","cantidad-cafe");
-}
-
-
-let botonManteca=document.getElementById("agregar-manteca");
-    botonManteca.onclick=()=>{
-        llenarCarrito("Manteca");
-        sumarCantidadesProducto(1,"Manteca");
-        sumarPrecioProducto(1);
-        mostrarSumaDeProductos("Manteca","cantidad-manteca");
-        mostrarCarrito("MANTECA",1,"contenedor-mensaje-manteca");
-        mostrarTotal();
-    }    
-let botonRestaManteca=document.getElementById("eliminar-manteca");
-botonRestaManteca.onclick=()=>{
-        restarProducto(1,"Manteca");
-        mostrarCarrito("MANTECA",1,"contenedor-mensaje-manteca");
-        mostrarTotal();
-        mostrarSumaDeProductos("Manteca","cantidad-manteca");
-}
-    
-
-let botonVino=document.getElementById("agregar-vino");
-    botonVino.onclick=()=>{
-        llenarCarrito("Vino");
-        sumarCantidadesProducto(2,"Vino");
-        sumarPrecioProducto(2);
-        mostrarSumaDeProductos("Vino","cantidad-vino");
-        mostrarCarrito("VINO",2,"contenedor-mensaje-vino");
-        mostrarTotal();
+    botonEliminar.onclick=()=>{
+        restarProducto(producto.indice,producto.nombre);
+        mostrarCarrito(producto.nombre,producto.indice,`contenedor-mensaje-${producto.nombre}`);
+        mostrarSumaDeProductos(producto.nombre,`cantidad-${producto.nombre}`);
+        mostrarTotal();  
     }
-
-let botonRestaVino=document.getElementById("eliminar-vino");
-botonRestaVino.onclick=()=>{
-        restarProducto(2,"Vino");
-        mostrarCarrito("VINO",2,"contenedor-mensaje-vino");
-        mostrarTotal();
-        mostrarSumaDeProductos("Vino","cantidad-vino");
-    }
-
-
-
-    let botonHeladera=document.getElementById("agregar-heladera");
-botonHeladera.onclick=()=>{
-    llenarCarrito("Heladera");
-    sumarCantidadesProducto(3,"Heladera");
-    sumarPrecioProducto(3,"cantidad-heladera");
-    mostrarSumaDeProductos("Heladera","cantidad-heladera");
-    mostrarCarrito("HELADERA",3,"contenedor-mensaje-heladera","eliminar-heladera");
-    mostrarTotal();
-    
-}
-
-let botonRestaHeladera=document.getElementById("eliminar-heladera");
-botonRestaHeladera.onclick=()=>{
-        restarProducto(3,"Heladera");
-        mostrarCarrito("HELADERA",3,"contenedor-mensaje-heladera");
-        mostrarTotal();
-        mostrarSumaDeProductos("Heladera","cantidad-heladera");
-    }
-
-
-
-
-
-
-
+})
 
 
 // BOTON QUE MUESTRA EL CARRITO Y ESCONDE
@@ -243,7 +195,7 @@ botonComenzar.onclick=()=>{
         carritoDiv.style.transition="1.5s";
         flag=true;
     }
-
+    
     
      
   }
