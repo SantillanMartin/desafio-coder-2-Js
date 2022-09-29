@@ -56,9 +56,9 @@ function calcularIntereses(monto,interes){
 
 
 // Esta funcion suma cada producto elegido y los guarda en el valor cantidad de cada objeto. El parametro indice es el indice del objeto y el id es el id del input del objeto en el html.
-function sumarCantidadesProducto(indice,id,nombreProducto){
+function sumarCantidadesProducto(indice,nombreProducto){
     
-    PRODUCTOS[indice].cantidad=PRODUCTOS[indice].cantidad+parseInt(document.getElementById(id).value);
+    PRODUCTOS[indice].cantidad=PRODUCTOS[indice].cantidad+1;
     let sumaCantidadIndividual=PRODUCTOS[indice].cantidad;
     sessionStorage.setItem(nombreProducto,sumaCantidadIndividual);
 }
@@ -73,9 +73,9 @@ function sumarCantidadesProducto(indice,id,nombreProducto){
 
 
 // Esta funcion va a ir llenando el acumulador para luego mostrar el total.
-function sumarPrecioProducto(indice,id){
+function sumarPrecioProducto(indice){
     
-    sumaDeProductosPrecio=sumaDeProductosPrecio+(PRODUCTOS[indice].precio*parseInt(document.getElementById(id).value));
+    sumaDeProductosPrecio=sumaDeProductosPrecio+PRODUCTOS[indice].precio;
     let totalAAlmacenar=sumaDeProductosPrecio;
     sessionStorage.setItem("total",totalAAlmacenar);
     
@@ -128,10 +128,14 @@ function mostrarCarrito(producto,indice,idMensaje){
 
 // Funcion que va mostrando el subtotal antes de abrir el carrito.
 function mostrarTotal(){
-    document.getElementById("suma__total").value=sessionStorage.getItem("total");
+    
+    document.getElementById("suma__total").value="$"+sessionStorage.getItem("total");
     
 }
 
+function mostrarSumaDeProductos(nombreProducto,id){
+    document.getElementById(id).value=sessionStorage.getItem(nombreProducto);
+}
 
 
 
@@ -141,11 +145,12 @@ let botonCafe=document.getElementById("agregar-cafe");
 botonCafe.onclick=()=>{
 
         llenarCarrito("Cafe");
-        sumarCantidadesProducto(0,"cantidad-cafe","Cafe");
-        sumarPrecioProducto(0,"cantidad-cafe");
+        sumarCantidadesProducto(0,"Cafe");
+        sumarPrecioProducto(0);
+        mostrarSumaDeProductos("Cafe","cantidad-cafe");
         mostrarCarrito("CAFE",0,"contenedor-mensaje-cafe");
         mostrarTotal();
-        botonVaciarCarrito();  
+         
     }
 
 let botonRestaCafe=document.getElementById("eliminar-cafe");
@@ -153,15 +158,16 @@ botonRestaCafe.onclick=()=>{
     restarProducto(0,"Cafe");
     mostrarCarrito("CAFE",0,"contenedor-mensaje-cafe");
     mostrarTotal();
-    
+    mostrarSumaDeProductos("Cafe","cantidad-cafe");
 }
 
 
 let botonManteca=document.getElementById("agregar-manteca");
     botonManteca.onclick=()=>{
         llenarCarrito("Manteca");
-        sumarCantidadesProducto(1,"cantidad-manteca","Manteca");
-        sumarPrecioProducto(1,"cantidad-manteca");
+        sumarCantidadesProducto(1,"Manteca");
+        sumarPrecioProducto(1);
+        mostrarSumaDeProductos("Manteca","cantidad-manteca");
         mostrarCarrito("MANTECA",1,"contenedor-mensaje-manteca");
         mostrarTotal();
     }    
@@ -170,14 +176,16 @@ botonRestaManteca.onclick=()=>{
         restarProducto(1,"Manteca");
         mostrarCarrito("MANTECA",1,"contenedor-mensaje-manteca");
         mostrarTotal();
+        mostrarSumaDeProductos("Manteca","cantidad-manteca");
 }
     
 
 let botonVino=document.getElementById("agregar-vino");
     botonVino.onclick=()=>{
         llenarCarrito("Vino");
-        sumarCantidadesProducto(2,"cantidad-vino","Vino");
-        sumarPrecioProducto(2,"cantidad-vino");
+        sumarCantidadesProducto(2,"Vino");
+        sumarPrecioProducto(2);
+        mostrarSumaDeProductos("Vino","cantidad-vino");
         mostrarCarrito("VINO",2,"contenedor-mensaje-vino");
         mostrarTotal();
     }
@@ -187,6 +195,7 @@ botonRestaVino.onclick=()=>{
         restarProducto(2,"Vino");
         mostrarCarrito("VINO",2,"contenedor-mensaje-vino");
         mostrarTotal();
+        mostrarSumaDeProductos("Vino","cantidad-vino");
     }
 
 
@@ -194,8 +203,9 @@ botonRestaVino.onclick=()=>{
     let botonHeladera=document.getElementById("agregar-heladera");
 botonHeladera.onclick=()=>{
     llenarCarrito("Heladera");
-    sumarCantidadesProducto(3,"cantidad-heladera","Heladera");
+    sumarCantidadesProducto(3,"Heladera");
     sumarPrecioProducto(3,"cantidad-heladera");
+    mostrarSumaDeProductos("Heladera","cantidad-heladera");
     mostrarCarrito("HELADERA",3,"contenedor-mensaje-heladera","eliminar-heladera");
     mostrarTotal();
     
@@ -206,6 +216,7 @@ botonRestaHeladera.onclick=()=>{
         restarProducto(3,"Heladera");
         mostrarCarrito("HELADERA",3,"contenedor-mensaje-heladera");
         mostrarTotal();
+        mostrarSumaDeProductos("Heladera","cantidad-heladera");
     }
 
 
@@ -216,31 +227,26 @@ botonRestaHeladera.onclick=()=>{
 
 
 
-// BOTON QUE MUESTRA EL CARRITO
+// BOTON QUE MUESTRA EL CARRITO Y ESCONDE
 
 let botonComenzar=document.getElementById("boton-comenzar");
- botonComenzar.onclick=()=>{
-    
-    
-    
-
+let flag=true;
+botonComenzar.onclick=()=>{
     let carritoDiv=document.getElementById("carrito__mostrar");
-    carritoDiv.style.top="10px";
     
+    if(flag){
+        carritoDiv.style.top="10px";
+        carritoDiv.style.transition="0.7s";
+        flag=false
+    }else{
+        carritoDiv.style.top='-200%';
+        carritoDiv.style.transition="1.5s";
+        flag=true;
+    }
+
     
-    
-    
+     
   }
-
-// BOTON QUE ESCONDE EL CARRITO PARA SEGUIR AGREGANDO PRODUCTOS
-let botonSeguir=document.getElementById("seguir");
-botonSeguir.onclick=()=>{
-    let carritoDiv=document.getElementById("carrito__mostrar");
-    carritoDiv.style.top='-200%';
-    
-    
-    
-}
 
 // BOTON QUE FINALIZA LA COMPRA, Y REINICIA EL STORAGE.
 

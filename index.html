@@ -8,7 +8,7 @@
 
     <title>Carrito de supermercado con calculadora de interes-Santilan Martin</title>
 </head>
-<body id="10">
+<body id="body">
     <header class="header" id="header-">
         <section class="header__contenedor">
             <section class="header__contenedor--titulo-img">
@@ -40,10 +40,13 @@
                         <h2 class="main__cards__precio" id="main-cards-precio">$350</h2>
                         
                     </div>
-                        <label for="cafe">Cantidad: </label>
-                        <input type="number" id="cantidad-cafe" name="cafe">
-                    <button class="main__cards__button" id="agregar-cafe">Agregar</button>
-                    <button class="main__cards__button" id="eliminar-cafe">Eliminar</button>
+                    <div class="main__botones-agregar-eliminar">
+                        
+                        <button class="main__cards__button" id="eliminar-cafe">-</button>
+                        <input type="text" class="main__inputs-style" id="cantidad-cafe" name="cafe">
+                        <button class="main__cards__button" id="agregar-cafe">+</button>
+                    </div>    
+                    
                 </div>
                 <div class="main__cards__productos">
                     <img src="./imagenes/manteca.webp" alt="manteca">
@@ -51,10 +54,12 @@
                         <p>Manteca tipo A</p>
                         <h2 class="main__cards__precio" id="main-cards-precio">$200</h2>
                     </div>
-                        <label for="cafe">Cantidad: </label>
-                        <input type="number" id="cantidad-manteca" name="cafe">
-                    <button class="main__cards__button" id="agregar-manteca">Agregar</button>
-                    <button class="main__cards__button" id="eliminar-manteca">Eliminar</button>
+                    <div class="main__botones-agregar-eliminar">
+                        
+                        <button class="main__cards__button" id="eliminar-manteca">-</button>
+                        <input type="text" class="main__inputs-style" id="cantidad-manteca" name="manteca">
+                        <button class="main__cards__button" id="agregar-manteca">+</button>
+                    </div>  
                 </div>
                 <div class="main__cards__productos">
                     <img src="./imagenes/vino.webp" alt="vino">
@@ -62,10 +67,12 @@
                         <p>Vino Especial</p>
                         <h2 class="main__cards__precio" id="main-cards-precio">$1200</h2>
                     </div>
-                        <label for="cafe">Cantidad: </label>
-                        <input type="number" id="cantidad-vino" name="cafe">
-                    <button class="main__cards__button" id="agregar-vino">Agregar</button>
-                    <button class="main__cards__button" id="eliminar-vino">Eliminar</button>
+                    <div class="main__botones-agregar-eliminar">
+                        
+                        <button class="main__cards__button" id="eliminar-vino">-</button>
+                        <input type="text" class="main__inputs-style" id="cantidad-vino" name="vino">
+                        <button class="main__cards__button" id="agregar-vino">+</button>
+                    </div>  
                 </div>
                 <div class="main__cards__productos">
                     <img src="./imagenes/heladera.webp" alt="heladera">
@@ -73,23 +80,18 @@
                         <p>Heladera Samsung</p>
                         <h2 class="main__cards__precio" id="main-cards-precio">$200.000</h2>
                     </div>
-                        <label for="cafe">Cantidad: </label>
-                        <input type="number" id="cantidad-heladera" name="cafe">
-                    <button class="main__cards__button" id="agregar-heladera">Agregar</button>
-                    <button class="main__cards__button" id="eliminar-heladera">Eliminar</button>
+                    <div class="main__botones-agregar-eliminar">
+                        
+                        <button class="main__cards__button" id="eliminar-heladera">-</button>
+                        <input type="text" class="main__inputs-style" id="cantidad-heladera" name="heladera">
+                        <button class="main__cards__button" id="agregar-heladera">+</button>
+                    </div>  
                 </div>
                 
                 
             </section>
         <label for="suma">Subtotal hasta el momento $ :</label>
-        <input type="number" id="suma__total" class="input__forma">
-                    
-                    <!--Botones para mostrar carrito -->
-        <!--<button class="main__button" id="boton-comenzar">IR AL CARRITO</button>-->
-        <button id="seguir" class="main__button">SEGUIR COMPRA</button>
-        
-        
-        
+        <input type="text" id="suma__total" class="input__forma">
         
         
     </main>
