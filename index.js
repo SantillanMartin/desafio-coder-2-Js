@@ -20,39 +20,47 @@ class Producto{
     const PRODUCTOS=[
     {
         nombre:"Cafe",
+        descripcion:"Cafe la Morenita Premiun",
         precio:350,
         cantidad:0,
         imagen:"./imagenes/cafe.webp",
         agregar:"agregar-cafe",
         indice:0,
+        vaciar:"vaciar-Cafe",
         calcularCosto(){
         cantidad * precio;   
     }},
     
     {   nombre:"Manteca",
+        descripcion:"Manteca La Paulina 200gr",
         precio:200,
         cantidad:0,
         imagen:"./imagenes/manteca.webp",
         agregar:"agregar-manteca",
         indice:1,
+        vaciar:"vaciar-Manteca",
         calcularCosto(){
         cantidad*precio;
     }},
     {   nombre:"Vino",
+        descripcion:"Vino Malbec Trapiche 750cc",
         precio:1200,
         cantidad:0,
         imagen:"./imagenes/vino.webp",
         agregar:"agregar-vino",
         indice:2,
+        vaciar:"vaciar-Vino",
         calcularCosto(){
         cantidad*precio;
     }},
     {   nombre:"Heladera",
+        descripcion:"Heladera Samsung Inverter Inox",
         precio:200000,
         cantidad:0,
         imagen:"./imagenes/heladera.webp",
         agregar:"agregar-heladera",
         indice:3,
+        vaciar:"vaciar-Heladera",
         calcularCosto(){
         cantidad*precio;
     }}];
@@ -125,23 +133,41 @@ function llenarCarrito(productoNombre){
     
 }
 
-function mostrarCarrito(producto,indice,idMensaje){
-
-        let cantidad=document.createElement("div");
-        cantidad.className="main__contenedor__appenchild";
-        let contenedor=document.getElementById(idMensaje);
-        contenedor.innerHTML="";
-        cantidad.innerHTML=`<p>Agrego al carrito: ${producto} -CANTIDAD: ${PRODUCTOS[indice].cantidad}</p><img class="imagen__producto__subtotal" src="${PRODUCTOS[indice].imagen}">`;
-        contenedor.append(cantidad);    
-        
-        // Operador ternario que si elimino todos los productos elegidos del carrito borra el nodo contenedor.
-        PRODUCTOS[indice].cantidad<1 ? contenedor.innerHTML="" : contenedor;
-
+function mostrarSubtotalEnCarrito(){
         let contenedorCarrito=document.getElementById("insertar__total");
         let mostrarTotalPrecio=document.createElement("h2");
         contenedorCarrito.innerHTML="";
         mostrarTotalPrecio.innerHTML=`$${sumaDeProductosPrecio}`;
         contenedorCarrito.appendChild(mostrarTotalPrecio);
+}
+
+function mostrarCarrito(indice,idMensaje,nombreProducto,vaciar){
+        
+        let cantidad=document.createElement("div");
+        cantidad.className="main__contenedor__appenchild";
+        let contenedor=document.getElementById(idMensaje);
+        contenedor.innerHTML="";
+        cantidad.innerHTML=`<div class="contenedor-mensaje-carrito"><img class="imagen__producto__subtotal" src="${PRODUCTOS[indice].imagen}"><p>${PRODUCTOS[indice].descripcion}</p></div>
+        <img src="./imagenes/papelera-de-reciclaje.png" alt="papelera" id=${vaciar} class="boton-papelera-carrito">`;
+        contenedor.append(cantidad);
+        
+        let botonVaciar=document.getElementById(`${vaciar}`)
+        botonVaciar.onclick=()=>{
+            contenedor.innerHTML="";
+            sumaDeProductosPrecio-=PRODUCTOS[indice].precio*PRODUCTOS[indice].cantidad;
+            PRODUCTOS[indice].cantidad=0;
+            let sumaCantidadIndividual=PRODUCTOS[indice].cantidad;
+            sessionStorage.setItem(nombreProducto,sumaCantidadIndividual);
+            let totalAAlmacenar=sumaDeProductosPrecio;
+            sessionStorage.setItem("total",totalAAlmacenar);
+            
+            mostrarSubtotalEnCarrito();
+            mostrarTotal();
+            
+        }
+        // Operador ternario que si elimino todos los productos elegidos del carrito borra el nodo contenedor.
+        PRODUCTOS[indice].cantidad<1 ? contenedor.innerHTML="" : contenedor;
+        mostrarSubtotalEnCarrito()
         
 }
 
@@ -167,16 +193,53 @@ PRODUCTOS.forEach((producto)=>{
         sumarCantidadesProducto(producto.indice,producto.nombre);
         sumarPrecioProducto(producto.indice);
         mostrarSumaDeProductos(producto.nombre,`cantidad-${producto.nombre}`);
-        mostrarCarrito(producto.nombre,producto.indice,`contenedor-mensaje-${producto.nombre}`);
-        mostrarTotal();  
+        mostrarCarrito(producto.indice,`contenedor-mensaje-${producto.nombre}`,producto.nombre,producto.vaciar);
+        mostrarTotal();
+        Toastify({
+            text: `Agrego : ${producto.descripcion}`,
+            duration: 2000,
+            newWindow: true,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            className: "toastify-notificacion",
+            style: {
+                background: "black",
+                color:"white",
+                
+              },
+            onClick: function(){} // Callback after click
+          }).showToast(); 
     }
     botonEliminar.onclick=()=>{
+        if(producto.cantidad>0){
+            Toastify({
+                text: `Elimino: ${producto.descripcion}`,
+                duration: 2000,
+                newWindow: true,
+                close: true,
+                className: "toastify-notificacion",
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true,
+                style: {
+                    background: "red",
+                    color:"white",
+                    
+                  }, // Prevents dismissing of toast on hover
+                onClick: function(){} // Callback after click
+              }).showToast(); 
+        }
         restarProducto(producto.indice,producto.nombre);
-        mostrarCarrito(producto.nombre,producto.indice,`contenedor-mensaje-${producto.nombre}`);
+        mostrarCarrito(producto.indice,`contenedor-mensaje-${producto.nombre}`,producto.nombre,producto.vaciar);
         mostrarSumaDeProductos(producto.nombre,`cantidad-${producto.nombre}`);
-        mostrarTotal();  
+        mostrarTotal();
+        
+        
     }
 })
+
 
 
 // BOTON QUE MUESTRA EL CARRITO Y ESCONDE
@@ -187,7 +250,7 @@ botonComenzar.onclick=()=>{
     let carritoDiv=document.getElementById("carrito__mostrar");
     
     if(flag){
-        carritoDiv.style.top="10px";
+        carritoDiv.style.top=0;
         carritoDiv.style.transition="0.7s";
         flag=false
     }else{
