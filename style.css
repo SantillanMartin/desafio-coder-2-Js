@@ -6,6 +6,11 @@
     padding: 0;
     box-sizing: border-box;
 }
+html{
+    
+    overflow-x: hidden; 
+
+}
 
 body{
     font-family: 'Poppins', sans-serif;
@@ -207,11 +212,11 @@ body{
     align-items: center;
     border: solid black;
     position: absolute;
-    top: 0;
     background-color:white;
     z-index: 10;
     transition: 0.7s;
-    top: -200%;
+    right: -200%;
+    top: 0;
     
 }
 .menu__carrito__botones{
@@ -220,11 +225,32 @@ body{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    border: solid black 1px;
+    
 }
-
+.menu__carrito__cerrar-contenedor{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 95%;
+    height: 7rem;
+    
+    
+}
+.menu__carrito__cerrar{
+    width: 1.5rem;
+    height: 1.5rem;
+    
+}
+.menu__carrito__cerrar:hover{
+    cursor: pointer;
+    
+}
 .menu__carrito__h2{
     margin: 0.8rem 0;
+}
+.hr{
+    width: 95%;
 }
 
 .boton-papelera-carrito{
@@ -238,7 +264,9 @@ body{
     width: 5rem;
     height: 3rem;
     border: none;
-    background-color: #c4a4ec;
+    background-color: #000000;
+    font-weight: bold;
+    color: white;
     border-radius: 0.4rem;
     box-shadow: 1px 1px 7px grey;
     transition: 0.4s;

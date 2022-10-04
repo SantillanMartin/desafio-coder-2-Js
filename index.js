@@ -200,7 +200,7 @@ PRODUCTOS.forEach((producto)=>{
             duration: 2000,
             newWindow: true,
             close: true,
-            gravity: "top", // `top` or `bottom`
+            gravity: "bottom", // `top` or `bottom`
             position: "right", // `left`, `center` or `right`
             stopOnFocus: true, // Prevents dismissing of toast on hover
             className: "toastify-notificacion",
@@ -220,7 +220,7 @@ PRODUCTOS.forEach((producto)=>{
                 newWindow: true,
                 close: true,
                 className: "toastify-notificacion",
-                gravity: "top", // `top` or `bottom`
+                gravity: "bottom", // `top` or `bottom`
                 position: "right", // `left`, `center` or `right`
                 stopOnFocus: true,
                 style: {
@@ -245,23 +245,25 @@ PRODUCTOS.forEach((producto)=>{
 // BOTON QUE MUESTRA EL CARRITO Y ESCONDE
 
 let botonComenzar=document.getElementById("boton-comenzar");
-let flag=true;
+
 botonComenzar.onclick=()=>{
-    let carritoDiv=document.getElementById("carrito__mostrar");
+    let carritoDiv=document.querySelector(".menu__carrito");
     
-    if(flag){
-        carritoDiv.style.top=0;
+    
+        carritoDiv.style.right=0;
         carritoDiv.style.transition="0.7s";
-        flag=false
-    }else{
-        carritoDiv.style.top='-200%';
-        carritoDiv.style.transition="1.5s";
-        flag=true;
-    }
+        
     
     
      
   }
+let botonOcultarCarrito=document.getElementById("ocultar__carrito");
+botonOcultarCarrito.onclick=()=>{
+        let carritoDiv=document.getElementById("carrito__mostrar");
+        carritoDiv.style.right='-200%';
+        carritoDiv.style.transition="1.5s";
+}
+
 
 // BOTON QUE FINALIZA LA COMPRA, Y REINICIA EL STORAGE.
 
