@@ -136,6 +136,7 @@ function llenarCarrito(productoNombre){
 function mostrarSubtotalEnCarrito(){
         let contenedorCarrito=document.getElementById("insertar__total");
         let mostrarTotalPrecio=document.createElement("h2");
+        mostrarTotalPrecio.className="selector__carrito";
         contenedorCarrito.innerHTML="";
         mostrarTotalPrecio.innerHTML=`$${sumaDeProductosPrecio}`;
         contenedorCarrito.appendChild(mostrarTotalPrecio);
@@ -144,11 +145,12 @@ function mostrarSubtotalEnCarrito(){
 function mostrarCarrito(indice,idMensaje,nombreProducto,vaciar){
         
         let cantidad=document.createElement("div");
-        cantidad.className="main__contenedor__appenchild";
+        cantidad.className="main__contenedor__appenchild selector__carrito";
         let contenedor=document.getElementById(idMensaje);
         contenedor.innerHTML="";
-        cantidad.innerHTML=`<div class="contenedor-mensaje-carrito"><img class="imagen__producto__subtotal" src="${PRODUCTOS[indice].imagen}"><p>${PRODUCTOS[indice].descripcion}</p></div>
-        <img src="./imagenes/papelera-de-reciclaje.png" alt="papelera" id=${vaciar} class="boton-papelera-carrito">`;
+        cantidad.innerHTML=`<div class="contenedor-mensaje-carrito selector__carrito"><img class="imagen__producto__subtotal selector__carrito" src="${PRODUCTOS[indice].imagen}">
+        <p class="selector__carrito">${PRODUCTOS[indice].descripcion}</p></div>
+        <img src="./imagenes/papelera-de-reciclaje.png" alt="papelera" id=${vaciar} class="boton-papelera-carrito selector__carrito">`;
         contenedor.append(cantidad);
         
         let botonVaciar=document.getElementById(`${vaciar}`)
@@ -195,6 +197,7 @@ PRODUCTOS.forEach((producto)=>{
         mostrarSumaDeProductos(producto.nombre,`cantidad-${producto.nombre}`);
         mostrarCarrito(producto.indice,`contenedor-mensaje-${producto.nombre}`,producto.nombre,producto.vaciar);
         mostrarTotal();
+        // Cada vez que se agrega un producto o elimina con toastify salta una alerta indicandolo.
         Toastify({
             text: `Agrego : ${producto.descripcion}`,
             duration: 2000,
@@ -243,6 +246,20 @@ PRODUCTOS.forEach((producto)=>{
 
 
 // BOTON QUE MUESTRA EL CARRITO Y ESCONDE
+let botonCerrarPorFuera=document.getElementById("body");
+botonCerrarPorFuera.addEventListener("click",cerrarCarrito);
+
+function cerrarCarrito(e){
+    e.preventDefault();
+    if(e.target.classList[1]!="selector__carrito" && e.target.className!="header__carrito-img" && e.target.classList[0]!="selector__carrito"){
+        let carritoDiv=document.getElementById("carrito__mostrar");
+        carritoDiv.style.right='-200%';
+        carritoDiv.style.transition="2s";
+    }
+
+    
+}
+
 
 let botonComenzar=document.getElementById("boton-comenzar");
 
@@ -270,7 +287,7 @@ botonOcultarCarrito.onclick=()=>{
 function finalizarCompra(){
     let contenedorCuotas=document.getElementById("insertar__total__interes");
     let botonFinalizar=document.createElement("button");
-    botonFinalizar.className="botones__finalizar-cuotas"
+    botonFinalizar.className="botones__finalizar-cuotas selector__carrito animate__animated";
     botonFinalizar.id="boton__finalizar"
     botonFinalizar.innerHTML="FINALIZAR COMPRA";
     contenedorCuotas.appendChild(botonFinalizar);
@@ -294,11 +311,12 @@ function finalizarCompra(){
 // BOTONES QUE SUMAN EL TOTAL MAS EL INTERES ELEGIDO, DE MOMENTO CREE LOS BOTONES REPITIENDO CODIGO, DEBO CORREGIRLO PARA NO REPETIR.
 
 let botonCuotas1=document.getElementById("cuotas__1");
-botonCuotas1.className="botones__finalizar-cuotas";
+botonCuotas1.className="menu__cuotas__botones selector__carrito";
 botonCuotas1.onclick=()=>{
     let contenedorCuotas=document.getElementById("insertar__total__interes");
     contenedorCuotas.innerHTML="";
     let totalEnCuotas=document.createElement("h2");
+    totalEnCuotas.className="selector__carrito";
     let porcentajeASumar=calcularIntereses(sumaDeProductosPrecio,0);
     let totalConInteresSumado=sumaDeProductosPrecio+porcentajeASumar;
     totalEnCuotas.innerHTML=`Total con interes sumado de corresponder:<br>$${totalConInteresSumado} en 1 cuota de $${totalConInteresSumado}`;
@@ -307,11 +325,12 @@ botonCuotas1.onclick=()=>{
 }
 
 let botonCuotas3=document.getElementById("cuotas__3");
-botonCuotas3.className="botones__finalizar-cuotas";
+botonCuotas3.className="menu__cuotas__botones selector__carrito";
 botonCuotas3.onclick=()=>{
     let contenedorCuotas=document.getElementById("insertar__total__interes");
     contenedorCuotas.innerHTML="";
     let totalEnCuotas=document.createElement("h2");
+    totalEnCuotas.className="selector__carrito";
     let porcentajeASumar=calcularIntereses(sumaDeProductosPrecio,15);
     let totalConInteresSumado=sumaDeProductosPrecio+porcentajeASumar;
     totalEnCuotas.innerHTML=`Total con interes sumado de corresponder:<br>$${totalConInteresSumado} en 3 cuotas de $${(totalConInteresSumado/3).toFixed(2)}`;
@@ -320,11 +339,12 @@ botonCuotas3.onclick=()=>{
 }
 
 let botonCuotas6=document.getElementById("cuotas__6");
-botonCuotas6.className="botones__finalizar-cuotas";
+botonCuotas6.className="menu__cuotas__botones selector__carrito";
 botonCuotas6.onclick=()=>{
     let contenedorCuotas=document.getElementById("insertar__total__interes");
     contenedorCuotas.innerHTML="";
     let totalEnCuotas=document.createElement("h2");
+    totalEnCuotas.className="selector__carrito";
     let porcentajeASumar=calcularIntereses(sumaDeProductosPrecio,20);
     let totalConInteresSumado=sumaDeProductosPrecio+porcentajeASumar;
     totalEnCuotas.innerHTML=`Total con interes sumado de corresponder:<br>$${totalConInteresSumado} en 6 cuotas de $${(totalConInteresSumado/6).toFixed(2)}`;
@@ -333,11 +353,12 @@ botonCuotas6.onclick=()=>{
 }
 
 let botonCuotas9=document.getElementById("cuotas__9");
-botonCuotas9.className="botones__finalizar-cuotas";
+botonCuotas9.className="menu__cuotas__botones selector__carrito";
 botonCuotas9.onclick=()=>{
     let contenedorCuotas=document.getElementById("insertar__total__interes");
     contenedorCuotas.innerHTML="";
     let totalEnCuotas=document.createElement("h2");
+    totalEnCuotas.className="selector__carrito";
     let porcentajeASumar=calcularIntereses(sumaDeProductosPrecio,30);
     let totalConInteresSumado=sumaDeProductosPrecio+porcentajeASumar;
     totalEnCuotas.innerHTML=`Total con interes sumado de corresponder:<br>$${totalConInteresSumado} en 9 cuotas de $${(totalConInteresSumado/9).toFixed(2)}`;
@@ -346,11 +367,12 @@ botonCuotas9.onclick=()=>{
 }
 
 let botonCuotas12=document.getElementById("cuotas__12");
-botonCuotas12.className="botones__finalizar-cuotas";
+botonCuotas12.className="menu__cuotas__botones selector__carrito";
 botonCuotas12.onclick=()=>{
     let contenedorCuotas=document.getElementById("insertar__total__interes");
     contenedorCuotas.innerHTML="";
     let totalEnCuotas=document.createElement("h2");
+    totalEnCuotas.className="selector__carrito";
     let porcentajeASumar=calcularIntereses(sumaDeProductosPrecio,40);
     let totalConInteresSumado=sumaDeProductosPrecio+porcentajeASumar;
     totalEnCuotas.innerHTML=`Total con interes sumado de corresponder:<br>$${totalConInteresSumado} en 12 cuotas de $${(totalConInteresSumado/12).toFixed(2)}`;

@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
 *{
     margin: 0;
     padding: 0;
@@ -19,6 +20,8 @@ body{
     
     
 }
+
+/* HEADER SECTION*/
 .header{
     width: 100%;
     height: 8rem;
@@ -29,16 +32,18 @@ body{
 }
 
 .header__contenedor{
-    width: 80%;
+    width: 65%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
 }
 
 .header__contenedor img{
     width: 3rem;
     height: 3rem;
 }
+
 
 .header__contenedor--titulo-img{
     display: flex;
@@ -53,18 +58,23 @@ body{
 }
 
 .header__contenedor__img-subtitulo img{
-    width: 3rem;
-    height: 3rem;
-    transition: 0.4s;
+    width: 2.4rem;
+    height: 2.4rem;
 }
 .header__contenedor__img-subtitulo img:hover{
     cursor: pointer;
-    box-shadow: 1px 1px 10px gray;
-    border-radius: 0.4rem;
-    background-color: rgb(236, 159, 159);
+    
+    
 
 }
+.header__usuario-carrito-flex{
+    display: flex;
+    width: 10rem;
+    justify-content: space-around;
+}
 
+
+/* MAIN SECTION */
 .main{
     width: 100%;
     height: 50.09rem;
@@ -205,15 +215,15 @@ body{
 }
 
 .menu__carrito{
-    width: 30rem;
-    height: 36.6rem;
+    width: 25rem;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: solid black;
+    outline: solid 1px gray;
     position: absolute;
     background-color:white;
-    z-index: 10;
+    z-index: 200;
     transition: 0.7s;
     right: -200%;
     top: 0;
@@ -234,12 +244,14 @@ body{
     align-items: flex-start;
     width: 95%;
     height: 7rem;
+    border-bottom: solid 1px gray;
+    margin-bottom: 1.5rem;
     
     
 }
 .menu__carrito__cerrar{
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1rem;
+    height: 1rem;
     
 }
 .menu__carrito__cerrar:hover{
@@ -249,9 +261,7 @@ body{
 .menu__carrito__h2{
     margin: 0.8rem 0;
 }
-.hr{
-    width: 95%;
-}
+
 
 .boton-papelera-carrito{
     width: 1.2rem;
@@ -260,6 +270,27 @@ body{
 .boton-papelera-carrito:hover{
     cursor: pointer;
 }
+@keyframes saltar {
+    0%{
+        transform: scale(0.85);
+    }
+    20%{
+        transform: scale(0.75);
+    }
+    50%{
+        transform: scale(0.5);
+    }
+    70%{
+        transform: scale(0.70);
+    }
+    90%{
+        transform: scale(0.85);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
 .botones__finalizar-cuotas{
     width: 5rem;
     height: 3rem;
@@ -270,10 +301,27 @@ body{
     border-radius: 0.4rem;
     box-shadow: 1px 1px 7px grey;
     transition: 0.4s;
+    /*animation: saltar 1s infinite;*/
 
 }
+
 .botones__finalizar-cuotas:hover{
     transform: scale(0.95);
+}
+.menu__cuotas__botones{
+    font-size: 0.80rem;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    border: none;
+    color: white;
+    border-radius: 0.4rem;
+    width: 4.8rem;
+    height: 4.5rem;
+    background-color: #1b1a1a;
+    transition: 0.3s;
+}
+.menu__cuotas__botones:active{
+    transform: scale(0.94);
 }
 #insertar__total__interes{
     display: flex;
@@ -294,6 +342,8 @@ body{
     justify-content: space-between;
     margin: 1.4rem;
     border: solid 1px gray;
+    border-radius: 0.4rem;
+    
     
 }
 .toastify-notificacion{
@@ -309,15 +359,21 @@ body{
 .imagen__producto__subtotal{
     width: 2.9rem;
     height: 2.9rem;
+    border-radius: 0.4rem;
 }
 .main__mostrar__productos__contenedor{
     width: 100%;
     display: flex;
     flex-direction: column;
     overflow:scroll;
+    text-decoration: none;
     align-items: center;
     
 }
+.main__mostrar__productos__contenedor::-webkit-scrollbar {
+    display: none;
+}
+
 .main__contenedor{
     
     width: 100%;

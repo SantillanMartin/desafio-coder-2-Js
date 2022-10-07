@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
+
     <title>Carrito de supermercado con calculadora de interes-Santilan Martin</title>
 </head>
 <body id="body">
@@ -18,8 +19,12 @@
             </section>
             
             <section class="header__contenedor__img-subtitulo">
-                <img src="./imagenes/carro.png" alt="carrito-supermercado" id="boton-comenzar">
-                <h3>carrito</h3>
+                <div class="header__usuario-carrito-flex">
+                    <img src="./imagenes/usuario.png" alt="usuario" id="imagen-usuario" class="header__usuario-img">
+                    <img src="./imagenes/carro.png" alt="carrito-supermercado" class="header__carrito-img" id="boton-comenzar">
+                
+                </div>
+                
             </section>
             
         </section>
@@ -96,25 +101,25 @@
         
         
     </main>
-    <section class="menu__carrito__contenedor " id="menu__carrito__contenedor-id">
-        <section class="menu__carrito" id="carrito__mostrar">
-            <section class="main__mostrar__productos__contenedor">
-                <div class="main__contenedor" id="contenedor-mensaje-Cafe">
-                </div>
-                <div class="main__contenedor" id="contenedor-mensaje-Manteca"></div>
-                <div class="main__contenedor" id="contenedor-mensaje-Vino"></div>
-                <div class="main__contenedor" id="contenedor-mensaje-Heladera"></div>
-            </section>
-            <div class="menu__carrito__cerrar-contenedor">
+    <section class="menu__carrito__contenedor selector__carrito selector__carrito" id="menu__carrito__contenedor-id">
+        <section class="menu__carrito selector__carrito" id="carrito__mostrar">
+            
+            <div class="menu__carrito__cerrar-contenedor selector__carrito">
                 <img src="./imagenes/cerrar.png" alt="cerrar-icono" class="menu__carrito__cerrar" id="ocultar__carrito">
-                <h2 class="menu__carrito__h2">Carrito</h2>
+                <h2 class="menu__carrito__h2 selector__carrito">Carrito</h2>
             </div>
             
             
-            <hr class="hr">
-            <p>¿En cuantas cuotas desea pagar?</p> 
             
-                <section class="menu__carrito__botones">
+            <section class="main__mostrar__productos__contenedor selector__carrito">
+                <div class="main__contenedor selector__carrito" id="contenedor-mensaje-Cafe"></div>
+                <div class="main__contenedor selector__carrito" id="contenedor-mensaje-Manteca"></div>
+                <div class="main__contenedor selector__carrito" id="contenedor-mensaje-Vino"></div>
+                <div class="main__contenedor selector__carrito" id="contenedor-mensaje-Heladera"></div>
+            </section>
+            <p class="selector__carrito">¿En cuantas cuotas desea pagar?</p> 
+            
+                <section class="menu__carrito__botones selector__carrito">
                 <button id="cuotas__1">1 Cuota|Sin interes</button>
                 <button id="cuotas__3">3 Cuotas|15% interes</button>
                 <button id="cuotas__6">6 Cuotas|20% interes</button>
@@ -122,9 +127,9 @@
                 <button id="cuotas__12">12 Cuotas|40% interes</button>
                 </section>
                 
-            <h2 class="menu__subtotal">Subtotal:</h2>
-            <section id="insertar__total"></section>
-            <section id="insertar__total__interes"></section>
+            <h2 class="menu__subtotal selector__carrito">Subtotal:</h2>
+            <section id="insertar__total" class="selector__carrito"></section>
+            <section id="insertar__total__interes" class="selector__carrito"></section>
         </section>
         
     </section>
