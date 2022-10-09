@@ -242,6 +242,36 @@ PRODUCTOS.forEach((producto)=>{
         
     }
 })
+// BOTON QUE MUESTRA EL REGISTRO DE USUARIO
+
+let botonAbrirUsuario=document.getElementById("imagen-usuario");
+botonAbrirUsuario.onclick=()=>{
+    let contenedorUsuario=document.getElementById("menu-usuario");
+    contenedorUsuario.style.left="0";
+    contenedorUsuario.style.transition="1s";
+}
+
+let botonCerrarUsuario=document.getElementById("cerrar-usuario");
+botonCerrarUsuario.onclick=()=>{
+    let contenedorUsuario=document.getElementById("menu-usuario");
+    contenedorUsuario.style.left="-200%";
+    contenedorUsuario.style.transition="2s";
+    
+}
+let botonCerrarPorFueraUsuario=document.getElementById("body");
+botonCerrarPorFueraUsuario.addEventListener("click",cerrarUsuario);
+
+function cerrarUsuario(e){
+    e.preventDefault();
+    if(e.target.classList[0]!="menu__usuario" && e.target.className!="header__usuario-img"){
+        let menuUsuario=document.getElementById("menu-usuario");
+        menuUsuario.style.left="-200%";
+        menuUsuario.style.transition="2s";
+    }
+    
+
+    
+}
 
 
 
@@ -259,6 +289,7 @@ function cerrarCarrito(e){
 
     
 }
+
 
 
 let botonComenzar=document.getElementById("boton-comenzar");
