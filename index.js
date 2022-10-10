@@ -263,7 +263,7 @@ botonCerrarPorFueraUsuario.addEventListener("click",cerrarUsuario);
 
 function cerrarUsuario(e){
     e.preventDefault();
-    if(e.target.classList[0]!="menu__usuario" && e.target.className!="header__usuario-img"){
+    if(e.target.classList[0]!="menu__usuario" && e.target.className!="header__usuario-img" && e.target.classList[0]!="selector__usuario"){
         let menuUsuario=document.getElementById("menu-usuario");
         menuUsuario.style.left="-200%";
         menuUsuario.style.transition="2s";

@@ -101,11 +101,26 @@
         
         
     </main>
-    <section class="menu__usuario" id="menu-usuario">
-        <img class="menu__usuario__cerrar" id="cerrar-usuario" src="./imagenes/cerrar.png" alt="cerrar-menu">
-        <h2>Te damos la bienvenida</h2>
-        <h3>Ingresa aca abajo :</h3>
+    
+    <section class="selector__usuario menu__usuario" id="menu-usuario">
+        <picture class="selector__usuario menu__usuario__picture">
+            <img class="menu__usuario__cerrar" id="cerrar-usuario" src="./imagenes/cerrar.png" alt="cerrar-menu">
+        </picture>
+        
+        <h2 class="selector__usuario menu__usario__h2">Te damos la bienvenida :)</h2>
+        <h3 class="selector__usuario menu__usuario__h3">Ingresa para comprar</h3>
+        
+        <form action="post" class="selector__usuario menu__usuario__form" id="formulario-usuario">
+            <div class="selector__usuario menu__usuario__inputs-contenedor">
+                <input type="text" placeholder="Nombre de usuario" class="selector__usuario menu__usuario__input">
+                <input type="password" placeholder="Contraseña" class="selector__usuario menu__usuario__input menu__usuario__input-borde">
+            </div>
+            
+            <button id="boton-ingresar" class="selector__usuario menu__usuario__submit">Ingresar</button>
+        </form>
+    
     </section>
+    
     <section class="menu__carrito__contenedor selector__carrito selector__carrito" id="menu__carrito__contenedor-id">
         <section class="menu__carrito selector__carrito" id="carrito__mostrar">
             
