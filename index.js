@@ -411,4 +411,50 @@ botonCuotas12.onclick=()=>{
     finalizarCompra();
 }
 
-// FALTA VALIDAR INPUTS Y ESCRIBIR CODIGO MAS LIMPIO.
+// USO DE FETCH- CON JSON LOCAL OBTENGO DOS USUARIOS PARA SIMULAR UN INICIO DE SESION.
+let usuarios=[];
+
+function traerUsuario(){
+    //let usuario1=usuarios[0].name;
+    document.getElementById("usuario-nombre").value=usuarios[0].name;
+    document.getElementById("usuario-contraseña").value=usuarios[0].password;
+}
+
+let botonIngresar=document.getElementById("boton-ingresar");
+botonIngresar.onclick=()=>{
+    let usuarioNombre=document.getElementById("usuario-nombre");
+    let usuarioContraseña=document.getElementById("usuario-contraseña");
+    let contenedorUsuario=document.getElementById("contenedor-usuario");
+    let contenedorError=document.getElementById("contenedor-error");
+    if(usuarioNombre.value==usuarios[0].name && usuarioContraseña.value==usuarios[0].password){
+        contenedorUsuario.innerHTML="";
+        contenedorError.innerHTML="";
+        let inicioExitoso=document.createElement("p");
+        inicioExitoso.className="selector__usuario";
+        inicioExitoso.innerHTML="Usted ingreso satisfactoriamente";
+        contenedorUsuario.append(inicioExitoso);
+    }else{
+        contenedorError.innerHTML="";
+        let mensaje=document.createElement("p");
+        mensaje.className="selector__usuario mensaje__error";
+        mensaje.innerHTML="Error, ha ingresado un usuario o contraseña incorrecta.";
+        contenedorError.append(mensaje);
+    }
+}
+async function consultarProductosServer() {
+    
+    try {
+      const response = await fetch(
+        "./usuario.json"
+      );
+      const data = await response.json();
+      usuarios = [...data];
+      traerUsuario();
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  consultarProductosServer();
+

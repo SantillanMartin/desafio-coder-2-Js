@@ -265,7 +265,7 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    width: 15rem;
+    width: 100%;
     height: 10rem;
 }
 
@@ -307,6 +307,14 @@ body{
     font-weight: bold;
     font-size: 1.1rem;
     border-radius: 0.4rem;
+    
+}
+
+.mensaje__error,.contenedor__error{
+    width: 100%;
+    text-align: center;
+    
+    
 }
 
 
