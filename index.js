@@ -441,6 +441,8 @@ botonIngresar.onclick=()=>{
         contenedorError.append(mensaje);
     }
 }
+
+// USO DE FETCH
 async function consultarProductosServer() {
     
     try {
