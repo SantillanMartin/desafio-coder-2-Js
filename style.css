@@ -316,6 +316,11 @@ body{
     
     
 }
+.mostrar__usuario__nombre{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 
 .menu__usuario__cerrar{

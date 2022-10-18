@@ -413,7 +413,98 @@ botonCuotas12.onclick=()=>{
 
 // USO DE FETCH- CON JSON LOCAL OBTENGO DOS USUARIOS PARA SIMULAR UN INICIO DE SESION.
 let usuarios=[];
+function pintarUsuario(ingreso){
+                let inputNombre=document.getElementById("usuario-nombre");
+                inputNombre.style.display="none";
+                let inputContraseña=document.getElementById("usuario-contraseña");
+                inputContraseña.style.display="none";
+                let contenedorUsuario=document.getElementById("contenedor-usuario");
+                let contenedorError=document.getElementById("contenedor-error");
+                let ingresoH3=document.getElementById("menu-usuario-h3");
+                ingresoH3.innerHTML="";
+                //contenedorUsuario.innerHTML="";
+                contenedorError.innerHTML="";
+                let inicioExitoso=document.createElement("p");
+                inicioExitoso.id="inicio-exitoso-ocultar";
+                inicioExitoso.className="selector__usuario";
+                inicioExitoso.innerHTML="Usted ingreso satisfactoriamente";
+                contenedorUsuario.append(inicioExitoso);
+                
+                let contenedorMostrarUsuario=document.getElementById("mostrar-usuario-nombre");
+                let mostrarUsuarioNombre=document.createElement("p");
+                mostrarUsuarioNombre.id="ingreso-nombre";
+                mostrarUsuarioNombre.innerHTML=`¡Hola ${ingreso}!`;
+                contenedorMostrarUsuario.append(mostrarUsuarioNombre);
+                sessionStorage.setItem("usuario",ingreso);
+                
+                
+}
 
+function cerrarSesion(){
+    let botonCerrarSesion=document.createElement("button");
+    botonCerrarSesion.innerHTML="Cerrar sesion";
+    botonCerrarSesion.className="selector__usuario menu__usuario__submit";
+    let contenedorBotonCerrarSesion=document.getElementById("formulario-usuario");
+    contenedorBotonCerrarSesion.append(botonCerrarSesion);
+    botonCerrarSesion.onclick=()=>{
+
+        let contenedorUsuario=document.getElementById("contenedor-usuario");
+        let inicioExitoso=document.getElementById("inicio-exitoso-ocultar");
+        inicioExitoso.innerHTML="";
+        let inputNombre=document.getElementById("usuario-nombre");
+        inputNombre.style.display="block";
+        let inputContraseña=document.getElementById("usuario-contraseña");
+        inputContraseña.style.display="block";
+        botonCerrarSesion.style.display="none";
+        botonIngresar().style.display="block";
+        let mostrarUsuarioNombre=document.getElementById("ingreso-nombre")
+        mostrarUsuarioNombre.innerHTML="";
+
+        
+    }
+}
+
+function botonIngresar(){
+    let botonIngresar=document.getElementById("boton-ingresar");
+    return botonIngresar;
+}
+
+
+function registro(){
+    
+    botonIngresar().onclick=()=>{
+        
+        let usuarioIngresado=document.getElementById("usuario-nombre").value;
+        let contraseñaIngresada=document.getElementById("usuario-contraseña").value;
+        
+        usuarios.forEach((usuario)=>{
+            if(usuario.name==usuarioIngresado && usuario.password==contraseñaIngresada){
+                pintarUsuario(usuario.name)
+                cerrarSesion();
+                botonIngresar().style.display="none";
+                
+            }
+            
+        })
+        
+    }
+}
+
+function obtenerUsuario(){
+    let usuarioAlmacenado=sessionStorage.getItem("usuario");
+    if(usuarioAlmacenado){
+        pintarUsuario(usuarioAlmacenado);
+        cerrarSesion();
+        botonIngresar().style.display="none";
+    }
+}
+
+obtenerUsuario();
+
+
+
+    
+/*
 function traerUsuario(){
     //let usuario1=usuarios[0].name;
     document.getElementById("usuario-nombre").value=usuarios[0].name;
@@ -426,6 +517,7 @@ botonIngresar.onclick=()=>{
     let usuarioContraseña=document.getElementById("usuario-contraseña");
     let contenedorUsuario=document.getElementById("contenedor-usuario");
     let contenedorError=document.getElementById("contenedor-error");
+    let contenedorMostrarUsuario=document.getElementById("mostrar-usuario-nombre");
     if(usuarioNombre.value==usuarios[0].name && usuarioContraseña.value==usuarios[0].password){
         contenedorUsuario.innerHTML="";
         contenedorError.innerHTML="";
@@ -433,6 +525,9 @@ botonIngresar.onclick=()=>{
         inicioExitoso.className="selector__usuario";
         inicioExitoso.innerHTML="Usted ingreso satisfactoriamente";
         contenedorUsuario.append(inicioExitoso);
+        let mostrarUsuarioNombre=document.createElement("p");
+        mostrarUsuarioNombre.innerHTML=`¡Hola ${usuarios[0].name}!`
+        contenedorMostrarUsuario.append(mostrarUsuarioNombre);
     }else{
         contenedorError.innerHTML="";
         let mensaje=document.createElement("p");
@@ -441,7 +536,7 @@ botonIngresar.onclick=()=>{
         contenedorError.append(mensaje);
     }
 }
-
+*/
 // USO DE FETCH
 async function consultarProductosServer() {
     
@@ -451,7 +546,8 @@ async function consultarProductosServer() {
       );
       const data = await response.json();
       usuarios = [...data];
-      traerUsuario();
+      
+      registro();
       
     } catch (error) {
       console.log(error);
@@ -459,4 +555,3 @@ async function consultarProductosServer() {
   }
 
   consultarProductosServer();
-
