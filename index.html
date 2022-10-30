@@ -6,27 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <title>Carrito de supermercado con calculadora de interes-Santilan Martin</title>
 </head>
-<body id="body">
-    <header class="header" id="header-">
+<body class="body" id="body">
+    
+        
+    
+    <header class="header" id="header">
         <section class="header__contenedor">
             <section class="header__contenedor--titulo-img">
-                <h1 class="header__titulo">Bienvenidos a Supermercados El Ahorro</h1> 
+                <h1 class="header__titulo" id="prueba-martin">Bienvenidos a Supermercados El Ahorro</h1> 
                 <img src="./imagenes/aguacate.png" alt="palta">
             </section>
-            
+            <section class="header__tasa-cambio-columna" >
+                <p>Tasa de Cambio del dia:</p>
+                <section class="header__tasa-cambio" id="tasa-cambio-contenedor">
+                    <p class="header__cambio--color">1 $USD =</p>
+                </section>
+                
+                
+            </section>
             <section class="header__contenedor__img-subtitulo">
                 <div class="header__usuario-carrito-flex">
-                    <div id="mostrar-usuario-nombre" class="mostrar__usuario__nombre">
+                    <div class="mostrar__usuario__nombre">
                         <img src="./imagenes/usuario.png" alt="usuario" id="imagen-usuario" class="header__usuario-img">
                     </div>
-                    <img src="./imagenes/carro.png" alt="carrito-supermercado" class="header__carrito-img" id="boton-comenzar">
+                    <img src="./imagenes/carro.png" alt="carrito-supermercado" class="header__carrito-img selector__carrito" id="boton-comenzar">
                 
                 </div>
-                
+                <div class="mostrar__usuario__nombre--tamaño" id="mostrar-usuario-nombre"></div>
             </section>
             
         </section>
@@ -104,24 +114,31 @@
         
     </main>
     
-    <section class="selector__usuario menu__usuario" id="menu-usuario">
-        <picture class="selector__usuario menu__usuario__picture">
-            <img class="menu__usuario__cerrar" id="cerrar-usuario" src="./imagenes/cerrar.png" alt="cerrar-menu">
-        </picture>
-        
-        <h2 class="selector__usuario menu__usario__h2">Te damos la bienvenida :)</h2>
-        <h3 class="selector__usuario menu__usuario__h3" id="menu-usuario-h3">Ingresa para comprar</h3>
-        
-        <form action="post" class="selector__usuario menu__usuario__form" id="formulario-usuario">
-            <div class="selector__usuario menu__usuario__inputs-contenedor" id="contenedor-usuario">
-                <input type="text" placeholder="Nombre de usuario" id="usuario-nombre" class="selector__usuario menu__usuario__input">
-                <input type="password" placeholder="Contraseña" id="usuario-contraseña" class="selector__usuario menu__usuario__input menu__usuario__input-borde">
-            </div>
-            <div class="selector__usuario contenedor__error" id="contenedor-error" ></div>
-            <button id="boton-ingresar" class="selector__usuario menu__usuario__submit">Ingresar</button>
-        </form>
     
-    </section>
+        <section class="selector__usuario menu__usuario" id="menu-usuario">
+            <picture class="selector__usuario menu__usuario__picture">
+                <img class="menu__usuario__cerrar" id="cerrar-usuario" src="./imagenes/cerrar.png" alt="cerrar-menu">
+            </picture>
+            
+            <h2 class="selector__usuario menu__usario__h2" id="bienvenida">Te damos la bienvenida :)</h2>
+            <h3 class="selector__usuario menu__usuario__h3" id="menu-usuario-h3">Ingresa para comprar</h3>
+            
+            <form action="post" class="selector__usuario menu__usuario__form" id="formulario-usuario">
+                <div class="selector__usuario menu__usuario__inputs-contenedor" id="contenedor-usuario">
+                    <input type="text" placeholder="Nombre de usuario" id="usuario-nombre" class="selector__usuario menu__usuario__input">
+                    <input type="password" placeholder="Contraseña" id="usuario-contraseña" class="selector__usuario menu__usuario__input menu__usuario__input-borde">
+                    
+                </div>
+                <p class="selector__usuario" id="error-ingreso"></p>
+                <div class="selector__usuario contenedor__error" id="contenedor-error" ></div>
+                <button id="boton-ingresar" class="selector__usuario menu__usuario__submit menu__usuario__submit--position--top">Ingresar</button>
+            </form>
+            
+            
+        
+        </section>
+       
+    
     
     <section class="menu__carrito__contenedor selector__carrito selector__carrito" id="menu__carrito__contenedor-id">
         <section class="menu__carrito selector__carrito" id="carrito__mostrar">
@@ -139,7 +156,7 @@
                 <div class="main__contenedor selector__carrito" id="contenedor-mensaje-Vino"></div>
                 <div class="main__contenedor selector__carrito" id="contenedor-mensaje-Heladera"></div>
             </section>
-            <p class="selector__carrito">¿En cuantas cuotas desea pagar?</p> 
+            <p class="0 selector__carrito">¿En cuantas cuotas desea pagar?</p> 
             
                 <section class="menu__carrito__botones selector__carrito">
                 <button id="cuotas__1">1 Cuota|Sin interes</button>
@@ -151,12 +168,20 @@
                 
             <h2 class="menu__subtotal selector__carrito">Subtotal:</h2>
             <section id="insertar__total" class="selector__carrito"></section>
-            <section id="insertar__total__interes" class="selector__carrito"></section>
+            <section id="insertar__total__interes" class="0 selector__carrito"></section>
         </section>
         
     </section>
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="index.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
