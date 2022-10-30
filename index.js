@@ -68,7 +68,7 @@ class Producto{
   
 
 
-    // USUARIOS GENERICOS PARA COMPRAR
+    // USUARIOS GENERICOS PARA COMPRAR E INICIAR SESION
     let usuarios=[{
     
         name: "usuario1",
@@ -392,34 +392,42 @@ function mostrarSumaDeProductos(nombreProducto,id){
                 
             
         }
-        botonEliminar.onclick=()=>{
-            if(producto.cantidad>0){
-                Toastify({
-                    text: `Elimino: ${producto.descripcion}`,
-                    duration: 2000,
-                    newWindow: true,
-                    close: true,
-                    className: "toastify-notificacion",
-                    gravity: "bottom", // `top` or `bottom`
-                    position: "right", // `left`, `center` or `right`
-                    stopOnFocus: true,
-                    style: {
-                        background: "red",
-                        color:"white",
-                        
-                      }, // Prevents dismissing of toast on hover
-                    onClick: function(){} // Callback after click
-                  }).showToast(); 
-                let contenedorCuotas=document.getElementById("insertar__total__interes");
-                contenedorCuotas.innerHTML="";
+        
+            botonEliminar.onclick=()=>{
+                if(usuarioIngreso){
+                    if(producto.cantidad>0){
+                        Toastify({
+                            text: `Elimino: ${producto.descripcion}`,
+                            duration: 2000,
+                            newWindow: true,
+                            close: true,
+                            className: "toastify-notificacion",
+                            gravity: "bottom", // `top` or `bottom`
+                            position: "right", // `left`, `center` or `right`
+                            stopOnFocus: true,
+                            style: {
+                                background: "red",
+                                color:"white",
+                                
+                              }, // Prevents dismissing of toast on hover
+                            onClick: function(){} // Callback after click
+                          }).showToast(); 
+                        let contenedorCuotas=document.getElementById("insertar__total__interes");
+                        contenedorCuotas.innerHTML="";
+                    }
+                    restarProducto(producto.indice,producto.nombre);
+                    mostrarCarrito(producto.indice,`contenedor-mensaje-${producto.nombre}`,producto.nombre,producto.vaciar);
+                    mostrarSumaDeProductos(producto.nombre,`cantidad-${producto.nombre}`);
+                    mostrarTotal();
+                }else{
+                    Swal.fire('Debe iniciar sesion para comprar')
+                }
+                
+                
+                
             }
-            restarProducto(producto.indice,producto.nombre);
-            mostrarCarrito(producto.indice,`contenedor-mensaje-${producto.nombre}`,producto.nombre,producto.vaciar);
-            mostrarSumaDeProductos(producto.nombre,`cantidad-${producto.nombre}`);
-            mostrarTotal();
-            
-            
-        }
+        
+        
         
         
     })
